@@ -1,0 +1,80 @@
+/**
+ * Standards Used:
+ *
+ *   # Whitespace: 2 spaces
+ *
+ *   # Naming Convention: BEM (Block Element Modifier)
+ *
+ *     BEM naming convention used in order to avoid sharing same class names across modules
+ *     This helps to avoid rules conflicts across the project, e.g.
+ *     bold `.item` inside one module and narrow `.item` in the other one.
+ *
+ *     Nesting elements should be also limited to max 2-3 levels so that the structure is kept simple
+ *     and remains maintainable as the project grows.
+ *
+ *     Examples:
+ *
+ *       .books {
+ *         // Wrapper (Block)
+ *       }
+ *
+ *       .books__item {
+ *         // A single item (Element)
+ *       }
+ *
+ *       .books__item--promoted {
+ *         // A single promoted item (Element with Modifier)
+ *       }
+ *
+ *    Useful References:
+ *      * Single Responsibility by Drew Barantoni
+ *        http://drewbarontini.com/articles/single-responsibility/
+ *      * Official BEM Website
+ *        http://getbem.com/introduction/
+ *
+ *
+ *   # Ordering Properties: Alphabetical Order (ABC)
+ *
+ *     Since there are lots of CSS rules ordering standards out there, e.g.
+ *     "layout rules first, then colors, then fonts" and there are lots of
+ *     opinions out there which ones should be first, alphabetical ordering
+ *     seems to be the safest option out there.
+ *
+ *     Example:
+ *
+ *       .books-list {                  << BAD (non-alphabetical order)
+ *         font-weigh: bold;
+ *         color: #fff;
+ *       }
+ *
+ *       .books-list {                  << GOOD (alphabetical order)
+ *         color: #fff;
+ *         font-weight: bold;
+ *       }
+ *
+ *   # Inline vs Newlines: Newlines
+ *
+ *     By using newlines (enter) to separate the rules we make later code reviews
+ *     much easier for other developers. It is much easier to spot changes applied
+ *     to your CSS when you see changes line by line rather than need to seek
+ *     them whilst scrolling horizontally.
+ *
+ *     Example:
+ *
+ *       .books-list { font-size: 20px; font-weight: bold; }    << BAD (inline)
+
+ *       .books-list {                                          << GOOD (newlines)
+ *         font-size: 20px;
+ *         font-weight: bold;
+ *       }
+ *
+ *   # Responsiveness: Mobile-first
+ *
+ *     Mobile-first approach forces people to think about the smallest devices
+ *     first and then slowly enhance the functionality as the resolution grows.
+ *
+ *     This sometimes means using native dropdowns (better ux), thinking about
+ *     functional input types (e.g. [type="tel"], [type="number"]). It does not only
+ *     help to make fit things well on the smallest devices but also make you question
+ *     fancy design choices.
+ */

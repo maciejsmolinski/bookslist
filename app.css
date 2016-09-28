@@ -131,6 +131,18 @@
       width: 1000px;
     }
   }
+  .promoted-books__tiles {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @media screen and (min-width: 1024px) {
+    .promoted-books__tiles {
+      flex-direction: row;
+      margin: 0 auto;
+      width: 1000px;
+    }
+  }
 
 
   /**
@@ -203,4 +215,17 @@
   .book-tile__author-line {
     display: block;
     font-weight: 200;
+  }
+
+  /* Style component in a different context accordingly */
+  .promoted-books .book-tile {
+    background: transparent;
+    border-color: transparent;
+    width: 100%;
+  }
+  @media screen and (min-width: 1024px) {
+    .promoted-books .book-tile {
+      flex-direction: column;
+      width: 20%;
+    }
   }

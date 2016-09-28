@@ -31,7 +31,7 @@ const copy = require('gulp-contrib-copy');
 const autoprefixer = require('gulp-autoprefixer');
 
 const tasks = {
-  sass: { src: ['src/app.scss'], dest: './dest', watch: ['src/**/*.scss'] },
+  styles: { src: ['src/app.scss'], dest: './dest', watch: ['src/**/*.scss'] },
   images: { src: ['src/images/**/*'], dest: './dest/images' },
 };
 
@@ -55,9 +55,9 @@ gulp.task('images', () => {
            ;
 });
 
-// Compile sass files
-gulp.task('sass', () => {
-  const { src, dest } = tasks.sass;
+// Compile sass files and pipe through autoprefixer
+gulp.task('styles', () => {
+  const { src, dest } = tasks.styles;
 
   return gulp
            .src(src)

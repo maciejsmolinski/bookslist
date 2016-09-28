@@ -1,0 +1,27 @@
+/**
+ * Books List Section
+ */
+.books-list {
+  padding: 1em;
+}
+@media screen and (min-width: 1024px) {
+  .books-list {
+    margin: 0 auto;
+    width: 1000px;
+  }
+}
+.books-list__heading {
+  margin: 0;
+  text-transform: uppercase;
+}
+.books-list__tiles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media screen and (min-width: 1024px) {
+  .books-list__tiles {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

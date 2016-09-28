@@ -1,0 +1,27 @@
+/**
+ * Promoted Books Section
+ */
+.promoted-books {
+}
+.promoted-books__heading {
+  margin: 0;
+  text-transform: uppercase;
+}
+@media screen and (min-width: 1024px) {
+  .promoted-books__heading {
+    margin: 0 auto;
+    width: 1000px;
+  }
+}
+.promoted-books__tiles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media screen and (min-width: 1024px) {
+  .promoted-books__tiles {
+    flex-direction: row;
+    margin: 0 auto;
+    width: 1000px;
+  }
+}

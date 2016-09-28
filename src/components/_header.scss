@@ -1,0 +1,16 @@
+/**
+ * Header Section
+ */
+.header {
+  font-weight: 200;
+  margin: 0 auto 2em;
+  text-align: center;
+}
+.header--emphasis {
+  font-weight: 500;
+}
+@media screen and (min-width: 1024px) {
+  .header {
+    width: 1000px;
+  }
+}

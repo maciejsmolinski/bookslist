@@ -16,7 +16,7 @@
  * Workflow:
  *
  *   Build:
- *     - Compile SASS files to CSS
+ *     - Compile SASS files to CSS. Use autoprefixer to add vendor prefixes
  *     - Copy images over to destination directory
  *
  *   Watch:
@@ -28,6 +28,7 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const copy = require('gulp-contrib-copy');
+const autoprefixer = require('gulp-autoprefixer');
 
 const tasks = {
   sass: { src: ['src/app.scss'], dest: './dest', watch: ['src/**/*.scss'] },
@@ -61,6 +62,7 @@ gulp.task('sass', () => {
   return gulp
            .src(src)
            .pipe(sass())
+           .pipe(autoprefixer())
            .pipe(gulp.dest(dest))
            ;
 });

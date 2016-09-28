@@ -30,7 +30,7 @@ const sass = require('gulp-sass');
 const copy = require('gulp-contrib-copy');
 
 const tasks = {
-  sass: { src: ['src/app.scss'], dest: './dest' },
+  sass: { src: ['src/app.scss'], dest: './dest', watch: ['src/**/*.scss'] },
   images: { src: ['src/images/**/*'], dest: './dest/images' },
 };
 
@@ -39,7 +39,7 @@ const taskNames = Object.keys(tasks);
 // Watch task source directories and execute once change ocurred
 gulp.task('watch', () => {
   Object.keys(tasks).forEach((task) => {
-    gulp.watch(tasks[task].src, [task]);
+    gulp.watch(tasks[task].watch || tasks[task].src, [task]);
   });
 });
 

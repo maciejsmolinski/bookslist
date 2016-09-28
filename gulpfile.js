@@ -28,10 +28,12 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const copy = require('gulp-contrib-copy');
+const webpack = require('gulp-webpack');
 const autoprefixer = require('gulp-autoprefixer');
 
 const tasks = {
   styles: { src: ['src/app.scss'], dest: './dest', watch: ['src/**/*.scss'] },
+  scripts: { src: ['src/app.js'], dest: './' },
   images: { src: ['src/images/**/*'], dest: './dest/images' },
 };
 
@@ -67,7 +69,18 @@ gulp.task('styles', () => {
            ;
 });
 
-// Execute tasks once and exit
+// Bundle scripts with webpack and produce a single file
+gulp.task('scripts', () => {
+  const { src, dest } = tasks.scripts;
+
+  return gulp
+           .src(src)
+           .pipe(webpack(require('./webpack.config.js')))
+           .pipe(gulp.dest(dest))
+           ;
+});
+
+// Execute all tasks once and exit
 gulp.task('build', taskNames);
 
 // Execute all tasks and keep watching for file changes

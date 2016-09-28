@@ -1,0 +1,30 @@
+//
+// Simplify writing mobile first components
+// by providing mixin that eases managing breakpoints
+//
+// Sample Usage:
+//
+//   .component {
+//     width: 100%;
+//
+//     @include screen-medium {
+//       width: 50%;
+//     }
+//
+//     @include screen-big {
+//       width: calc(100% / 3);
+//     }
+//   }
+//
+
+@mixin screen-medium () {
+  @media all and (min-width: 512px) {
+    @content;
+  }
+}
+
+@mixin screen-big () {
+  @media all and (min-width: 1024px) {
+    @content;
+  }
+}

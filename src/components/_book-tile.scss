@@ -1,6 +1,5 @@
-/**
- * Book tile
- */
+@import "mixins";
+
 .book-tile {
   background: #fff;
   border: 1px solid #efefef;
@@ -8,49 +7,65 @@
   box-sizing: border-box;
   display: flex;
   font-size: .875rem; /* 14px */
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   margin: 1em 0;
   padding: 2em;
   position: relative;
   width: 100%;
-}
-@media screen and (min-width: 1024px) {
-  .book-tile {
+
+  @include screen-medium {
+    flex-direction: row;
+  }
+
+  @include screen-big {
+    flex-direction: row;
     width: 49%;
   }
-}
-.book-tile__cover {
-  background: #efefef;
-  box-shadow: -1px 1px 0 #ccc,
-              -2px 2px 0 #ccc,
-              -3px 3px 0 #ccc,
-              -4px 4px 0 #ccc,
-              -5px 5px 0 #ccc;
-  border-radius: 1px solid #efefef;
-  box-sizing: border-box;
-  margin: 0 3em 0 0;
-}
-.book-tile__title {
-  display: block;
-  font-weight: 500;
-}
-.book-tile__author-line {
-  display: block;
-  font-weight: 200;
-}
 
-
-
-/* Style component in a different context accordingly */
-.promoted-books .book-tile {
-  background: transparent;
-  border-color: transparent;
-  width: 100%;
-}
-@media screen and (min-width: 1024px) {
-  .promoted-books .book-tile {
-    flex-direction: column;
-    width: 20%;
+  &__cover {
+    background: #efefef;
+    box-shadow: -1px 1px 0 #ccc,
+                -2px 2px 0 #ccc,
+                -3px 3px 0 #ccc,
+                -4px 4px 0 #ccc,
+                -5px 5px 0 #ccc;
+    border-radius: 1px solid #efefef;
+    box-sizing: border-box;
+    margin: 0 3em 0 0;
+    max-width: 100%;
+    width: 150px;
   }
+
+  &__details {
+    @include screen-medium {
+      width: calc(100% - 150px);
+    }
+
+    @include screen-big {
+      width: auto;
+    }
+  }
+
+  &__title {
+    display: block;
+    font-weight: 500;
+  }
+  &__author-line {
+    display: block;
+    font-weight: 200;
+  }
+
+  // Style component in a different context accordingly
+  .promoted-books & {
+    background: transparent;
+    border-color: transparent;
+    width: 100%;
+
+    @include screen-big {
+      flex-direction: column;
+      width: 20%;
+    }
+  }
+
 }

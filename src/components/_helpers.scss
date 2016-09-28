@@ -1,8 +1,51 @@
 /**
- * Basic Styles
+ * Placeholder selectors like `%bold` do not land in the output file
+ *
+ * They are useful though to produce optimised CSS code and ease development
+ *
+ * Useful References:
+ * http://thesassway.com/intermediate/understanding-placeholder-selectors
+ *
+ *
+ * Important Note:
+ * Placeholder selectors don't work well with media queries. Things like
+ *
+ *   @include screen-big {
+ *     @extend %bold;
+ *   }
+ *
+ * Will NOT work!
+ *
  */
-body {
-  font-family: 'Raleway', cursive;
-  margin: 0;
-  min-height: 100vh; /* Expand to at least 100% of the viewport's height */
+
+%border-box {
+  box-sizing: border-box;
+}
+
+%block {
+  display: block;
+}
+
+%flex {
+  display: flex;
+}
+
+%relative {
+  display: relative;
+}
+
+%narrow {
+  font-weight: 200;
+}
+
+%bold {
+  font-weight: 500;
+}
+
+%center-aligned {
+  text-align: center;
+}
+
+%uppercased {
+  text-transform: uppercase;
 }

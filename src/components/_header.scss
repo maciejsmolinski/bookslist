@@ -1,16 +1,18 @@
 @import "mixins";
+@import "helpers";
 
 .header {
-  font-weight: 200;
+  @extend %center-aligned;
+  @extend %narrow;
+
   margin: 0 auto 2em;
-  text-align: center;
 
   @include screen-big {
     width: 1000px;
   }
 
   &--emphasis {
-    font-weight: 500;
+    @extend %bold;
   }
 
 }

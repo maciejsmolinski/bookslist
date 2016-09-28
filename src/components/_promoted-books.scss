@@ -1,10 +1,12 @@
 @import "mixins";
+@import "helpers";
 
 .promoted-books {
 
   &__heading {
+    @extend %uppercased;
+
     margin: 0;
-    text-transform: uppercase;
 
     @include screen-big {
       margin: 0 auto;
@@ -13,7 +15,8 @@
   }
 
   &__tiles {
-    display: flex;
+    @extend %flex;
+
     flex-direction: column;
     justify-content: space-between;
 

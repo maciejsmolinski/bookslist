@@ -1,17 +1,18 @@
 @import "mixins";
+@import "helpers";
 
 .book-tile {
+  @extend %flex;
+  @extend %border-box;
+
   background: #fff;
   border: 1px solid #efefef;
   border-radius: 3px;
-  box-sizing: border-box;
-  display: flex;
   font-size: .875rem; /* 14px */
   flex-direction: column;
   flex-wrap: nowrap;
   margin: 1em 0;
   padding: 2em;
-  position: relative;
   width: 100%;
 
   @include screen-medium {
@@ -19,11 +20,12 @@
   }
 
   @include screen-big {
-    flex-direction: row;
     width: 49%;
   }
 
   &__cover {
+    @extend %border-box;
+
     background: #efefef;
     box-shadow: -1px 1px 0 #ccc,
                 -2px 2px 0 #ccc,
@@ -31,7 +33,6 @@
                 -4px 4px 0 #ccc,
                 -5px 5px 0 #ccc;
     border-radius: 1px solid #efefef;
-    box-sizing: border-box;
     margin: 0 3em 0 0;
     max-width: 100%;
     width: 150px;
@@ -48,12 +49,12 @@
   }
 
   &__title {
-    display: block;
-    font-weight: 500;
+    @extend %bold;
+    @extend %block;
   }
   &__author-line {
-    display: block;
-    font-weight: 200;
+    @extend %narrow;
+    @extend %block;
   }
 
   // Style component in a different context accordingly

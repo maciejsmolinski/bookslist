@@ -1,4 +1,5 @@
 @import "mixins";
+@import "helpers";
 
 .books-list {
   padding: 1em;
@@ -9,12 +10,14 @@
   }
 
   &__heading {
+    @extend %uppercased;
+
     margin: 0;
-    text-transform: uppercase;
   }
 
   &__tiles {
-    display: flex;
+    @extend %flex;
+
     flex-direction: column;
     justify-content: space-between;
 

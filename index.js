@@ -10,7 +10,7 @@ const api = require('./services/api');
 server.use(serve('./dest'));
 
 // API routing
-router.get('/api/genre/:genre/:page', function * () {
+router.get('/api/genre/:genre/:page?', function * () {
   try {
     this.body = yield api.byGenre(this.params.genre, 10, Number(this.params.page) || 1);
   } catch (error) {
@@ -27,7 +27,7 @@ router.get('/api/genre/:genre/:page', function * () {
   }
 });
 
-router.get('/api/gender/:gender/:page', function * () {
+router.get('/api/gender/:gender/:page?', function * () {
   try {
     this.body = yield api.byAuthorGender(this.params.gender, 10, Number(this.params.page) || 1);
   } catch (error) {

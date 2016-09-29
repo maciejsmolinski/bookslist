@@ -45,24 +45,6 @@ router.get('/api/gender/:gender/:page?', function * () {
   }
 });
 
-// API route: Newest 3 books
-router.get('/api/newest', function * () {
-  try {
-    this.body = yield api.newest(3);
-  } catch (error) {
-    // Keep error details in response headers for detailed explanation what happened
-    this.set('X-Error-Details', error.message);
-
-    // Set Internal Server Error HTTP Header
-    this.status = 500;
-
-    // Return a json-formatted message
-    this.body = {
-      status: 'error',
-    };
-  }
-});
-
 // Main Request Handler
 router.get('/', function * () {
   this.body = layout; // Simply serve index.html contents

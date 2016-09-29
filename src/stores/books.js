@@ -4,7 +4,6 @@ const initial = {
   isLoading: false,
   error: '',
   list: [],
-  newest: [],
   filters: {
     genre: 'all',
     gender: 'all',
@@ -42,11 +41,6 @@ module.exports = {
     error: (error) => ({ error }),
 
     /**
-     * send('books:newest', [ listOfBooks ], done);
-     */
-    newest: (newest) => ({ newest }),
-
-    /**
      * send('books:list', [ listOfBooks ], done);
      */
     list: (list) => ({ list }),
@@ -71,7 +65,7 @@ module.exports = {
       send('error', error, done);
     },
 
-    fetch: (data, state, send, done) => {
+    fetch: (options, state, send, done) => {
       if (state.isLoading) {
         return;
       }
@@ -83,45 +77,21 @@ module.exports = {
       send('books:clear', done);
       send('books:loading', done);
 
-      /**
-       * Make sure both requests complete
-       * before dispatching events
-       */
-      Promise
-        .all([
-          api.newest(),
-          api.byGenre('horror', state.page),
-        ])
-        .then(([newest, books]) => {
-          send('books:newest', newest, done);
-          send('books:list', books, done);
-          send('books:loaded', done);
-        })
-        .catch((error) => send('books:failure', error, done))
-        ;
-    },
-
-    fetchMore: (data, state, send, done) => {
-      if (state.isLoading) {
-        return;
+      // If append request sent, increase page number
+      if (options && options.append) {
+        send('books:nextPage', done);
       }
-
-      if (state.error) {
-        return;
-      }
-
-      send('books:loading', done);
-      send('books:nextPage', done);
 
       api
         .byGenre('horror', state.page)
         .then(books => {
-          send('books:listAppend', books, done);
+          send(options && options.append ? 'books:listAppend' : 'books:list', books, done);
           send('books:loaded', done);
         })
         .catch((error) => send('books:failure', error, done))
         ;
     },
+
   },
   subscriptions: [],
 };

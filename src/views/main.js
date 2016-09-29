@@ -21,7 +21,7 @@ module.exports = (state, previousState, send) => {
     const selector = '.books-list .book-tile:nth-last-child(4)';
     const observer = new IntersectionObserver(() => {
         observer.unobserve(document.querySelector(selector));
-        send('books:fetchMore');
+        send('books:fetch', { append: true });
     });
 
     // Wait for event loop to finish working on DOM, then start observing
@@ -33,7 +33,7 @@ module.exports = (state, previousState, send) => {
 
       ${errors.length ? html`<div>Errors found: ${errors}!</div>` : html``}
 
-      ${topSection(books.newest)}
+      ${topSection()}
       ${booksList(books.list)}
 
     </main>

@@ -15,9 +15,6 @@ class Http {
    *
    * Sample Usage:
    *
-   *   // Query newest books
-   *   http.query('newest').then(...).catch(...)
-   *
    *   // Query second page of the horror books listing
    *   http.query('genre/horror/2').then(...).catch(...)
    *
@@ -41,22 +38,6 @@ class Http {
           }
         });
     });
-  }
-
-  /**
-   * Get newest books
-   *
-   * ::newest(limit:Number)
-   *
-   * Sample Usage:
-   *
-   *   // Get newest books
-   *   http.newest().then(...).catch(...);
-   *
-   * @return {Promise}
-   */
-  newest () {
-    return this.query('newest');
   }
 
   /**

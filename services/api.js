@@ -64,37 +64,6 @@ class Api {
   }
 
   /**
-   * Newest books
-   *
-   * ::newest(limit:Number)
-   *
-   * Sample Usage:
-   *
-   *   // Get 3 newest books
-   *   api.newest(3).then(...).catch(...);
-   *
-   * @return {Promise}
-   */
-  newest (limit = 3) {
-    if (typeof limit !== 'number') {
-      return Promise.reject(new Error(
-        `Api::newest expected "limit" to be a number. Received "${limit}" (${typeof limit}) instead`
-      ));
-    }
-
-    return this.connection.then(connection => {
-      return connection
-               .getCollection('books')
-               .chain()
-               .find()
-               .simplesort('published', true) // DESC sorting (newest first)
-               .limit(3)
-               .data()
-               ;
-    });
-  }
-
-  /**
    * Get books by genre
    *
    * ::byGenre(genre:String, limit:Number, page:Number)

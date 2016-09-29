@@ -5,7 +5,7 @@
   @extend %center-aligned;
   @extend %narrow;
 
-  margin: 0 auto 2em;
+  margin: 0 auto;
 
   @include screen-big {
     width: 1000px;

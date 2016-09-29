@@ -56,6 +56,19 @@
     @extend %block;
   }
 
+  &__genre {
+    @extend %italic;
+    @extend %narrow;
+
+    display: block;
+    margin-top: 1em;
+  }
+  &__publication {
+    @extend %italic;
+    @extend %narrow;
+    display: block;
+  }
+
   // Style component in a different context accordingly
   .promoted-books & {
     background: transparent;

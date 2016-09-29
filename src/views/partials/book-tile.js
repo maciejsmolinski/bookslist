@@ -1,4 +1,5 @@
 const html = require('choo/html');
+const date = require('./date');
 
 module.exports = (book) =>
   html`
@@ -12,7 +13,14 @@ module.exports = (book) =>
           ${book.name}
         </span>
         <span class="book-tile__author-line">
-          by ${book.author.name}
+          by ${book.author.name} (${book.author.gender})
+        </span>
+
+        <span class="book-tile__genre">
+          Genre: ${book.genre}
+        </span>
+        <span class="book-tile__publication">
+          Published: ${date(book.published * 1000)}
         </span>
       </p>
     </div>

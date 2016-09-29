@@ -11,6 +11,23 @@ module.exports = (state, previousState, send) => {
     send('books:fetch');
   }
 
+  /*
+  * Lazy Loading:
+  *
+  * Watch until fourth element from the end enters the screen
+  * When it does, request additional data (lazy load)
+  */
+  if (books.list.length && !books.isLoading) {
+    const selector = '.books-list .book-tile:nth-last-child(4)';
+    const observer = new IntersectionObserver(() => {
+        observer.unobserve(document.querySelector(selector));
+        send('books:fetchMore');
+    });
+
+    // Wait for event loop to finish working on DOM, then start observing
+    setTimeout(() => observer.observe(document.querySelector(selector)));
+  }
+
   return html`
     <main data-page="books">
 

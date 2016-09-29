@@ -13,6 +13,7 @@ const initial = {
     genre: false,
     author: false,
   },
+  page: 1,
 };
 
 module.exports = {
@@ -50,6 +51,16 @@ module.exports = {
      */
     list: (list) => ({ list }),
 
+    /**
+     * send('books:listAppend', [ listOfBooks ], done);
+     */
+    listAppend: (list, state) => ({ list: [].concat(state.list, list) }),
+
+    /**
+     * send('books:nextPage', done);
+     */
+    nextPage: (_, state) => ({ page: state.page + 1 })
+
   },
   effects: {
     failure: (message, state, send, done) => {
@@ -79,11 +90,33 @@ module.exports = {
       Promise
         .all([
           api.newest(),
-          api.byGenre('horror'),
+          api.byGenre('horror', state.page),
         ])
         .then(([newest, books]) => {
           send('books:newest', newest, done);
           send('books:list', books, done);
+          send('books:loaded', done);
+        })
+        .catch((error) => send('books:failure', error, done))
+        ;
+    },
+
+    fetchMore: (data, state, send, done) => {
+      if (state.isLoading) {
+        return;
+      }
+
+      if (state.error) {
+        return;
+      }
+
+      send('books:loading', done);
+      send('books:nextPage', done);
+
+      api
+        .byGenre('horror', state.page)
+        .then(books => {
+          send('books:listAppend', books, done);
           send('books:loaded', done);
         })
         .catch((error) => send('books:failure', error, done))

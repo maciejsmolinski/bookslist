@@ -91,18 +91,18 @@ const generator = generateInBatches(settings.numberOfRecords, settings.numberOfB
 /**
  * Use database service, when connection is established (database loaded), insert records
  */
-const db = require('./services/db')().then(() => {
+require('./services/db')().then(connection => {
   // Get existing collection or create a new one
-  const books = db.getCollection('books') || db.addCollection('books');
+  const books = connection.getCollection('books') || connection.addCollection('books');
 
   for (let batch of generator) {
     books.insert(batch);
   }
 
-  db.saveDatabase(() =>
+  connection.saveDatabase(() =>
     console.log(
       `${settings.numberOfRecords} records saved in ${settings.numberOfBatches} batches`
     )
   );
-  db.close();
+  connection.close();
 });

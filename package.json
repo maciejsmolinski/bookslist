@@ -20,6 +20,6 @@
     "gulp-webpack": "^1.5.0"
   },
   "dependencies": {
-    "lokijs": "^1.4.1",
+    "lokijs": "^1.4.1"
   }
 }

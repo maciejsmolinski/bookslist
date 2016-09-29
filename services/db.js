@@ -7,7 +7,7 @@ const Loki = require('lokijs');
  *
  *   const databaseService = require('./services/db');
  *
- *   databaseService().then((connection) => {
+ *   databaseService().then(connection => {
  *     const books = connection.getCollection('books');
  *     const horrors = books.find({ genre: 'horror' });
  *

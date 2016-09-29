@@ -74,16 +74,20 @@ module.exports = {
         return;
       }
 
-      send('books:clear', done);
+      // Clear only when not in `append` mode
+      if (!options || !options.append) {
+        send('books:clear', done);
+      }
+
       send('books:loading', done);
 
-      // If append request sent, increase page number
+      // If in `append` mode, increase page number
       if (options && options.append) {
         send('books:nextPage', done);
       }
 
       api
-        .byGenre('horror', state.page)
+        .byGenre('horror', options && options.append ? state.page + 1 : state.page)
         .then(books => {
           send(options && options.append ? 'books:listAppend' : 'books:list', books, done);
           send('books:loaded', done);

@@ -3,6 +3,26 @@ class Api {
     this.connection = require('./db')();
   }
 
+  /**
+   * Generic method that allows to query database and its collections easily
+   *
+   * ::query(collection:String, query:Object, limit:Number, page:Number)
+   *
+   * Sample Usage:
+   *
+   *   // Query for first 15 comedy books published by female authors
+   *
+   *   api.query(
+   *     'books',                                                          // Collection
+   *     { $and: [{ 'author.gender': 'female' }, { 'genre': 'comedy' }] }, // Query
+   *     15,                                                               // Limit
+   *     1                                                                 // Page
+   *   )
+   *   .then(...)
+   *   .catch(...)
+   *
+   * @return {Promise}
+   */
   query(collection, query, limit = 10, page = 1) {
     if (!collection) {
       return Promise.reject(new Error(

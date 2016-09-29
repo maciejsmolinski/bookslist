@@ -12,7 +12,7 @@ module.exports = (books) =>
 
       <div class="promoted-books">
         <h1 class="promoted-books__heading">
-          Popular This Week
+          Recently Published
         </h1>
 
         <div class="promoted-books__tiles">

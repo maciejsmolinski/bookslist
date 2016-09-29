@@ -34,12 +34,12 @@
                 -5px 5px 0 #ccc;
     margin: 0 3em 0 0;
     max-width: 100%;
-    width: 150px;
+    width: 100px;
   }
 
   &__details {
     @include screen-medium {
-      width: calc(100% - 150px);
+      width: calc(100% - 100px);
     }
 
     @include screen-big {

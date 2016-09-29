@@ -130,7 +130,7 @@ class Api {
    *   api.byAuthorGender('female').then(...).catch(...);
    *
    *   // Get 20 books written by male authors starting from page 2
-   *   api.byAuthorGender('comedy', 20, 2).then(...).catch(...);
+   *   api.byAuthorGender('male', 20, 2).then(...).catch(...);
    *
    * @return {Promise}
    */

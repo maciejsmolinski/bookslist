@@ -24,6 +24,12 @@ If you want to generate 1 million records, use the following command `for i in {
 Compile all assets once with `npm run build`.
 Compile and watch for file changes with `npm run watch`
 
+Run the application server with `npm start` (localhost:4242)
+or `PORT=3131 npm start` to run the server on a specified port (in this case localhost:3131)
+
+During development, it is recommended to use `nodemon` (`nodemon index.js`)
+so that the server reloads automatically when changes are being made in the project's directory.
+
 # Technological Choices
 
 # Additional Questions

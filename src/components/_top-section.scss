@@ -1,9 +1,8 @@
 @import "mixins";
 
 .top-section {
-  background: url('/dest/images/header.jpg') 50% center;
+  background: url('/images/header.jpg') 50% center;
   background-size: cover;
   color: #fff;
-  min-height: 300px;
   padding: 1em;
 }

@@ -3,6 +3,7 @@ const canSend = !(module && module.parent);
 
 const topSection = require('./partials/top-section');
 const booksList = require('./partials/books-list');
+const filters = require('./partials/filters');
 
 module.exports = (state, previousState, send) => {
   const { errors, books, params } = state;
@@ -34,6 +35,9 @@ module.exports = (state, previousState, send) => {
       ${errors.length ? html`<div>Errors found: ${errors}!</div>` : html``}
 
       ${topSection()}
+
+      ${filters()}
+
       ${booksList(books.list)}
 
     </main>

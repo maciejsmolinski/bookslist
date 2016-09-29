@@ -1,0 +1,33 @@
+@import "mixins";
+@import "helpers";
+
+.filters {
+  @extend %center-aligned;
+  @extend %narrow;
+
+  border: 1px solid #efefef;
+  border-width: 0 0 1px 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 1em;
+  padding: 1em 0;
+
+  @include screen-big {
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 1000px;
+  }
+
+  &__item {
+    margin: 1em;
+
+    @include screen-big {
+      margin: 0 0 0 2em;
+    }
+  }
+
+  &__label {
+    margin-right: .5em;
+  }
+
+}

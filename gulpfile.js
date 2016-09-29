@@ -64,7 +64,7 @@ gulp.task('styles', () => {
 
   return gulp
            .src(src)
-           .pipe(sass())
+           .pipe(sass().on('error', sass.logError))
            .pipe(autoprefixer())
            .pipe(gulp.dest(dest))
            ;

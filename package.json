@@ -21,6 +21,7 @@
     "gulp-webpack": "^1.5.0"
   },
   "dependencies": {
+    "choo": "^3.3.0",
     "koa": "^1.2.4",
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",

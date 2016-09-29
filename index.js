@@ -9,7 +9,7 @@ const api = require('./services/api');
 // Static Assets Serving (from `/`)
 server.use(serve('./dest'));
 
-// API routing
+// API route: Genre Filtering
 router.get('/api/genre/:genre/:page?', function * () {
   try {
     this.body = yield api.byGenre(this.params.genre, 10, Number(this.params.page) || 1);
@@ -27,9 +27,28 @@ router.get('/api/genre/:genre/:page?', function * () {
   }
 });
 
+// API route: Author Gender Filtering
 router.get('/api/gender/:gender/:page?', function * () {
   try {
     this.body = yield api.byAuthorGender(this.params.gender, 10, Number(this.params.page) || 1);
+  } catch (error) {
+    // Keep error details in response headers for detailed explanation what happened
+    this.set('X-Error-Details', error.message);
+
+    // Set Internal Server Error HTTP Header
+    this.status = 500;
+
+    // Return a json-formatted message
+    this.body = {
+      status: 'error',
+    };
+  }
+});
+
+// API route: Newest 3 books
+router.get('/api/newest', function * () {
+  try {
+    this.body = yield api.newest(3);
   } catch (error) {
     // Keep error details in response headers for detailed explanation what happened
     this.set('X-Error-Details', error.message);

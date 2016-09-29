@@ -14,9 +14,9 @@ module.exports = (state, previousState, send) => {
   return html`
     <main data-page="books">
 
-      ${errors.length ? html`<div>Errors found!</div>` : html``}
+      ${errors.length ? html`<div>Errors found: ${errors}!</div>` : html``}
 
-      ${topSection(books.list)}
+      ${topSection(books.newest)}
       ${booksList(books.list)}
 
     </main>

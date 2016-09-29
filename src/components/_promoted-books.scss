@@ -6,6 +6,7 @@
   &__heading {
     @extend %uppercased;
 
+    font-size: 1.25rem; // 20px
     margin: 0;
 
     @include screen-big {

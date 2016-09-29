@@ -18,6 +18,7 @@
  *   Build:
  *     - Compile SASS files to CSS. Use autoprefixer to add vendor prefixes
  *     - Copy images over to destination directory
+ *     - Bundle front-end scripts into one file with webpack
  *
  *   Watch:
  *     - Everything "Build" does plus...
@@ -33,7 +34,7 @@ const autoprefixer = require('gulp-autoprefixer');
 
 const tasks = {
   styles: { src: ['src/app.scss'], dest: './dest', watch: ['src/**/*.scss'] },
-  scripts: { src: ['src/app.js'], dest: './' },
+  scripts: { src: ['src/**/*.js'], dest: './' },
   images: { src: ['src/images/**/*'], dest: './dest/images' },
 };
 

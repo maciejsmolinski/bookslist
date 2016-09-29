@@ -58,6 +58,7 @@ const record = () => {
       gender: authorGender,
     },
     genre: chance.pickone(data.genres),
+    published: chance.timestamp(),
   };
 };
 

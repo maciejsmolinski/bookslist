@@ -3,6 +3,46 @@ class Api {
     this.connection = require('./db')();
   }
 
+  query(collection, query, limit = 10, page = 1) {
+    if (!collection) {
+      return Promise.reject(new Error(
+        `Api::query expected "collection" to be non-empty string. Received "${collection}" (${typeof collection}) instead`
+      ));
+    }
+
+    if (!query || typeof query === 'string' || Object.keys(query).length === 0) {
+      return Promise.reject(new Error(
+        `Api::query expected "query" to be an object. Received "${query}" (${typeof query}) instead`
+      ));
+    }
+
+    if (typeof limit !== 'number') {
+      return Promise.reject(new Error(
+        `Api::query expected "limit" to be a number. Received "${limit}" (${typeof limit}) instead`
+      ));
+    }
+
+    if (typeof page !== 'number') {
+      return Promise.reject(new Error(
+        `Api::query expected "page" to be a number. Received "${page}" (${typeof page}) instead`
+      ));
+    }
+
+    return this.connection.then(connection => {
+      const offset = (page - 1) * limit;
+
+      return connection
+               .getCollection(collection)
+               .chain()
+               .find(query)
+               .offset(offset)
+               .limit(limit)
+               .data()
+               ;
+    });
+
+  }
+
   /**
    * Get books by genre
    *
@@ -25,30 +65,7 @@ class Api {
       ));
     }
 
-    if (typeof limit !== 'number') {
-      return Promise.reject(new Error(
-        `Api::byGenre expected "limit" to be a number. Received "${limit}" (${typeof limit}) instead`
-      ));
-    }
-
-    if (typeof page !== 'number') {
-      return Promise.reject(new Error(
-        `Api::byGenre expected "page" to be a number. Received "${page}" (${typeof page}) instead`
-      ));
-    }
-
-    return this.connection.then(connection => {
-      const offset = (page - 1) * limit;
-
-      return connection
-               .getCollection('books')
-               .chain()
-               .find({ genre })
-               .offset(offset)
-               .limit(limit)
-               .data()
-               ;
-    });
+    return this.query('books', { genre }, limit, page);
   }
 
   /**
@@ -73,30 +90,7 @@ class Api {
       ));
     }
 
-    if (typeof limit !== 'number') {
-      return Promise.reject(new Error(
-        `Api::byAuthorGender expected "limit" to be a number. Received "${limit}" (${typeof limit}) instead`
-      ));
-    }
-
-    if (typeof page !== 'number') {
-      return Promise.reject(new Error(
-        `Api::byAuthorGender expected "page" to be a number. Received "${page}" (${typeof page}) instead`
-      ));
-    }
-
-    return this.connection.then(connection => {
-      const offset = (page - 1) * limit;
-
-      return connection
-               .getCollection('books')
-               .chain()
-               .find({ 'author.gender': gender })
-               .offset(offset)
-               .limit(limit)
-               .data()
-               ;
-    });
+    return this.query('books', { 'author.gender': gender }, limit, page);
   }
 }
 

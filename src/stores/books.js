@@ -65,11 +65,24 @@ module.exports = {
 
       Promise.resolve([
         {
-          name: 'Sample Book',
-          genre: 'horror',
-          author: { name: 'The Beast', gender: 'male' },
+          name: 'The Lord of the Rings',
+          genre: 'fantasy',
+          author: { name: 'J. R. R. Tolkien', gender: 'male' },
+          published: (+ new Date()),
+        },
+        {
+          name: 'One Hundred Years of Solitude',
+          genre: 'fantasy',
+          author: { name: 'Gabriel García Márquez', gender: 'male' },
+          published: (+ new Date()),
+        },
+        {
+          name: 'Brave New World',
+          genre: 'documentary',
+          author: { name: 'ldous Huxley', gender: 'male' },
           published: (+ new Date()),
         }
+
       ])
         .then(books => send('books:update', books, done))
         .catch((error) => send('books:failure', error, done))

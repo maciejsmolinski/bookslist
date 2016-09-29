@@ -1,6 +1,9 @@
 const html = require('choo/html');
 const canSend = !(module && module.parent);
 
+const topSection = require('./partials/top-section');
+const booksList = require('./partials/books-list');
+
 module.exports = (state, previousState, send) => {
   const { errors, books, params } = state;
 
@@ -13,8 +16,8 @@ module.exports = (state, previousState, send) => {
 
       ${errors.length ? html`<div>Errors found!</div>` : html``}
 
-      <p>Number of books: ${books.list.length}</p>
-      <p>Loading: ${books.isLoading}</p>
+      ${topSection(books.list)}
+      ${booksList(books.list)}
 
     </main>
   `;

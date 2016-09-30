@@ -60,7 +60,16 @@ module.exports = {
     /**
      * send('books:nextPage', done);
      */
-    nextPage: (_, state) => ({ page: state.page + 1 })
+    nextPage: (_, state) => ({ page: state.page + 1 }),
+
+    /**
+     * send('books:updateFilters', { newFilter }, done);
+     */
+    updateFilters: (filter, state) => {
+      const filters = Object.assign({}, state.filters, filter);
+
+      return Object.assign({}, state, { filters });
+    },
 
   },
   effects: {
@@ -107,6 +116,12 @@ module.exports = {
         })
         .catch((error) => send('books:failure', error, done))
         ;
+    },
+
+    changeFilters: (filter, state, send, done) => {
+      send('books:updateFilters', filter, done);
+      send('books:list', [], done);
+      send('books:fetch', { append: true }, done);
     },
 
   },

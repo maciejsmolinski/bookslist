@@ -87,7 +87,7 @@ module.exports = {
       }
 
       api
-        .byGenre('horror', options && options.append ? state.page + 1 : state.page)
+        .byGenre('all', options && options.append ? state.page + 1 : state.page)
         .then(books => {
           send(options && options.append ? 'books:listAppend' : 'books:list', books, done);
           send('books:loaded', done);

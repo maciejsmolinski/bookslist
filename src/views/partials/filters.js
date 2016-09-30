@@ -1,6 +1,6 @@
 const html = require('choo/html');
 
-module.exports = () =>
+module.exports = (filters) =>
   html`
 
     <section class="filters">
@@ -26,14 +26,7 @@ module.exports = () =>
             Book Genre:
           </strong>
           <select class="filters__options">
-            ${
-              [
-                'all', 'action', 'animation', 'comedy',
-                'documentary', 'family', 'fantasy',
-                'financial', 'history', 'horror',
-                'musical', 'sport', 'thriller',
-              ].map((option) => html`<option>${option}</option>`)
-            }
+            ${filters.available.genre.map((option) => html`<option>${option}</option>`)}
           </select>
         </label>
       </div>
@@ -44,9 +37,7 @@ module.exports = () =>
             Author Gender:
           </strong>
           <select class="filters__options">
-            ${
-              ['all', 'female', 'male'].map((option) => html`<option>${option}</option>`)
-            }
+            ${filters.available.gender.map((option) => html`<option>${option}</option>`)}
           </select>
         </label>
       </div>

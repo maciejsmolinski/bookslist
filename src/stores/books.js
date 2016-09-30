@@ -7,10 +7,17 @@ const initial = {
   filters: {
     genre: 'all',
     gender: 'all',
-  },
-  sorting: {
-    genre: false,
-    author: false,
+    sortGenre: false,
+    sortGender: false,
+    available: {
+      genre: [
+        'all', 'action', 'animation', 'comedy',
+        'documentary', 'family', 'fantasy',
+        'financial', 'history', 'horror',
+        'musical', 'sport', 'thriller',
+      ],
+      genders: ['all', 'female', 'male'],
+    }
   },
   page: 1,
 };

@@ -69,16 +69,4 @@
     display: block;
   }
 
-  // Style component in a different context accordingly
-  .promoted-books & {
-    background: transparent;
-    border-color: transparent;
-    width: 100%;
-
-    @include screen-big {
-      flex-direction: column;
-      width: 20%;
-    }
-  }
-
 }

@@ -7,8 +7,8 @@ const initial = {
   filters: {
     genre: 'all',
     gender: 'all',
-    sortGenre: false,
-    sortGender: false,
+    sortAuthorName: 'none',
+    sortBookName: 'none',
     available: {
       genre: [
         'all', 'action', 'animation', 'comedy',
@@ -94,7 +94,13 @@ module.exports = {
       }
 
       api
-        .byGenre('all', options && options.append ? state.page + 1 : state.page)
+        .search(
+          state.filters.gender,
+          state.filters.genre,
+          state.filters.sortAuthorName,
+          state.filters.sortBookName,
+          state.page
+        )
         .then(books => {
           send(options && options.append ? 'books:listAppend' : 'books:list', books, done);
           send('books:loaded', done);

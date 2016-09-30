@@ -4,119 +4,96 @@ class Api {
   }
 
   /**
-   * Generic method that allows to query database and its collections easily
+   * Get books by complex query criteria (filter / sort / limit / offset)
    *
-   * ::query(collection:String, query:Object, limit:Number, page:Number)
+   *   ::search(filters:Array, sort:Array, limit:Number, page:Number)
    *
    * Sample Usage:
    *
-   *   // Query for first 15 comedy books published by female authors
+   *   // Find first 10 horror books written by male writers
+   *   api.search(
+   *     [
+   *       { type: 'genre', value: 'horror' }
+   *       { type: 'author.gender', value: 'male' }
+   *     ],                                        // genre=horror,author.gender=male filtering in place
+   *     []                                        // no sorting options in place
+   *     10,                                       // limit set to 10 records
+   *     1                                         // first page
+   *   ).then(...).catch(...);
    *
-   *   api.query(
-   *     'books',                                                          // Collection
-   *     { $and: [{ 'author.gender': 'female' }, { 'genre': 'comedy' }] }, // Query
-   *     15,                                                               // Limit
-   *     1                                                                 // Page
-   *   )
-   *   .then(...)
-   *   .catch(...)
+   *   // Find first 10 books, order by author name Z-A
+   *   api.search(
+   *     [],                                       // no filtering in place
+   *     [
+   *       { type: 'author.name', value: 'desc' }
+   *     ]                                         // Z-A author.name ordering
+   *     10,                                       // limit set to 10 records
+   *     1                                         // first page
+   *   ).then(...).catch(...);
    *
    * @return {Promise}
    */
-  query(collection, query = {}, limit = 10, page = 1) {
-    if (!collection) {
-      return Promise.reject(new Error(
-        `Api::query expected "collection" to be non-empty string. Received "${collection}" (${typeof collection}) instead`
-      ));
+  search(filters = [], sort = [], limit = 10, page = 1) {
+    if (filters.some(item => ['genre', 'author.gender'].indexOf(item.type) === -1)) {
+      return Promise.reject(new Error(`
+        Api::search expected "filters" to have either "genre" or "author.gender" types.
+        Received "${JSON.stringify(filters)}" (${typeof filters}) instead
+      `));
     }
 
-    if (!query) {
-      return Promise.reject(new Error(
-        `Api::query expected "query" to be an object. Received "${query}" (${typeof query}) instead`
-      ));
+    if (sort.some(item => ['name', 'author.name'].indexOf(item.type) === -1)) {
+      return Promise.reject(new Error(`
+        Api::search expected "sort" to be either "name" or "author.name".
+        Received "${JSON.stringify(sort)}" (${typeof sort}) instead
+      `));
     }
 
     if (typeof limit !== 'number') {
-      return Promise.reject(new Error(
-        `Api::query expected "limit" to be a number. Received "${limit}" (${typeof limit}) instead`
-      ));
+      return Promise.reject(new Error(`
+        Api::search expected "limit" to be a number.
+        Received "${limit}" (${typeof limit}) instead
+      `));
     }
 
     if (typeof page !== 'number') {
-      return Promise.reject(new Error(
-        `Api::query expected "page" to be a number. Received "${page}" (${typeof page}) instead`
-      ));
+      return Promise.reject(new Error(`
+        Api::search expected "page" to be a number.
+        Received "${page}" (${typeof page}) instead
+      `));
     }
 
     return this.connection.then(connection => {
       const offset = (page - 1) * limit;
 
-      return connection
-               .getCollection(collection)
-               .chain()
-               .find(query)
+      let baseQuery = connection.getCollection('books').chain();
+
+      if (filters.length) {
+        baseQuery = baseQuery
+                      .find({
+                        $and: filters.map(filter => {
+                          return {
+                            [filter.type]: filter.value
+                          };
+                        })
+                      })
+                      ;
+      }
+
+      if (sort.length) {
+        sort.forEach(item => {
+          baseQuery = baseQuery
+                        .simplesort(item.type, item.value === 'desc')
+                        ;
+        });
+      }
+
+      return baseQuery
                .offset(offset)
                .limit(limit)
                .data()
                ;
     });
 
-  }
-
-  /**
-   * Get books by genre
-   *
-   * ::byGenre(genre:String, limit:Number, page:Number)
-   *
-   * Sample Usage:
-   *
-   *   // Get first 10 horror books
-   *   api.byGenre('horror').then(...).catch(...);
-   *
-   *   // Get 20 comedy books starting from page 2
-   *   api.byGenre('comedy', 20, 2).then(...).catch(...);
-   *
-   * @return {Promise}
-   */
-  byGenre (genre = 'all', limit = 10, page = 1) {
-    if (!genre) {
-      return Promise.reject(new Error(
-        `Api::byGenre expected "genre" to be non-empty string. Received "${genre}" (${typeof genre}) instead`
-      ));
-    }
-
-    // 'all' means no genre filtering
-    const query = genre === 'all' ? { } : { genre };
-
-    return this.query('books', query, limit, page);
-  }
-
-  /**
-   * Get books by genre
-   *
-   * ::byAuthorGender(gender:String("male"|"female"), limit:Number, page:Number)
-   *
-   * Sample Usage:
-   *
-   *   // Get first 10 books written by female authors
-   *   api.byAuthorGender('female').then(...).catch(...);
-   *
-   *   // Get 20 books written by male authors starting from page 2
-   *   api.byAuthorGender('male', 20, 2).then(...).catch(...);
-   *
-   * @return {Promise}
-   */
-  byAuthorGender (gender = 'all', limit = 10, page = 1) {
-    if (['male', 'female', 'all'].indexOf(gender) === -1) {
-      return Promise.reject(new Error(
-        `Api::byAuthorGender expected "gender" to be "all", "male" or "female". Received "${gender}" (${typeof gender}) instead`
-      ));
-    }
-
-    // 'all' means no genre filtering
-    const query = gender === 'all' ? { } : { 'author.gender': gender };
-
-    return this.query('books', query, limit, page);
   }
 }
 

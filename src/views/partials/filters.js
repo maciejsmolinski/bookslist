@@ -12,10 +12,10 @@ module.exports = (filters) =>
           </strong>
           <select class="filters__options">
             <option>---</option>
-            <option>Author Gender: Female First</option>
-            <option>Author Gender: Male First</option>
-            <option>Genre: A-Z</option>
-            <option>Genre: Z-A</option>
+            <option>Author Name: A-Z</option>
+            <option>Author Name: Z-A</option>
+            <option>Book Name: A-Z</option>
+            <option>Book Name: Z-A</option>
           </select>
         </label>
       </div>

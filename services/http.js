@@ -43,64 +43,63 @@ class Http {
   /**
    * Get books by genre
    *
-   * ::byGenre(genre:String, page:Number)
+   * ::search(
+   *   maleOrFemale:String("male"|"female"|"all"),
+   *   bookGenre:String("all"|"comedy"|"horror"|...),
+   *   sortAuthorName:String("none"|"desc"|"asc"),
+   *   sortBookName:String("none"|"desc"|"asc"),
+   *   page:Number
+   * )
    *
    * Sample Usage:
    *
-   *   // Get first 10 horror books
-   *   http.byGenre('horror').then(...).catch(...);
+   *   // Get first 10 books by any author / any genre / no sorting
+   *   http.search('all', 'all', 'none', 'none', 1);
    *
-   *   // Get second 10 horror books
-   *   http.byGenre('horror', 2).then(...).catch(...);
-   *
-   * @return {Promise}
-   */
-  byGenre (genre = '', page = 1) {
-    if (!genre) {
-      return Promise.reject(new Error(
-        `Http::byGenre expected "genre" to be non-empty string. Received "${genre}" (${typeof genre}) instead`
-      ));
-    }
-
-    if (typeof page !== 'number') {
-      return Promise.reject(new Error(
-        `Http::byGenre expected "page" to be a number. Received "${page}" (${typeof page}) instead`
-      ));
-    }
-
-    return this.query(`genre/${genre}/${page}`);
-  }
-
-  /**
-   * Get books by genre
-   *
-   * ::byAuthorGender(gender:String("male"|"female"), page:Number)
-   *
-   * Sample Usage:
-   *
-   *   // Get first 10 books written by female authors
-   *   api.byAuthorGender('female').then(...).catch(...);
-   *
-   *   // Get second 10 books written by male authors
-   *   api.byAuthorGender('male', 2).then(...).catch(...);
+   *   // Get first 10 books by female authors / horror genre / sort by authorName Z-A / sort by book name A-Z
+   *   http.search('female', 'horror', 'desc', 'asc', 1);
    *
    * @return {Promise}
    */
-  byAuthorGender (gender = '', page = 1) {
-    if (['male', 'female'].indexOf(gender) === -1) {
-      return Promise.reject(new Error(
-        `Http::byAuthorGender expected "gender" to be either "male" or "female". Received "${gender}" (${typeof gender}) instead`
-      ));
+  search (maleOrFemale = 'all', bookGenre = 'all', sortAuthorName = 'none', sortBookName = 'none', page = 1) {
+    if (['all', 'male', 'female'].indexOf(maleOrFemale) === -1) {
+      return Promise.reject(new Error(`
+        Http::search expected "maleOrFemale" to be "all", "male" or "female".
+        Received "${maleOrFemale}" (${typeof maleOrFemale}) instead
+      `));
+    }
+
+    if (['all', 'action', 'animation', 'comedy', 'documentary', 'family', 'fantasy', 'financial', 'history', 'horror', 'musical', 'sport', 'thriller',].indexOf(bookGenre) === -1) {
+      return Promise.reject(new Error(`
+        Http::search expected "bookGenre" to be "all", "action", "animation", "comedy", "documentary", "family", "fantasy", "financial", "history", "horror", "musical", "sport" or "thriller".
+        Received "${bookGenre}" (${typeof bookGenre}) instead
+      `));
+    }
+
+    if (['none', 'desc', 'asc'].indexOf(sortAuthorName) === -1) {
+      return Promise.reject(new Error(`
+        Http::search expected "sortAuthorName" to be "none", "desc" or "asc".
+        Received "${sortAuthorName}" (${typeof sortAuthorName}) instead
+      `));
+    }
+
+    if (['none', 'desc', 'asc'].indexOf(sortBookName) === -1) {
+      return Promise.reject(new Error(`
+        Http::search expected "sortBookName" to be "none", "desc" or "asc".
+        Received "${sortBookName}" (${typeof sortBookName}) instead
+      `));
     }
 
     if (typeof page !== 'number') {
-      return Promise.reject(new Error(
-        `Http::byAuthorGender expected "page" to be a number. Received "${page}" (${typeof page}) instead`
-      ));
+      return Promise.reject(new Error(`
+        Http::byGenre expected "page" to be a number.
+        Received "${page}" (${typeof page}) instead
+      `));
     }
 
-    return this.query(`gender/${gender}/${page}`);
+    return this.query(`${maleOrFemale}/${bookGenre}/${sortAuthorName}/${sortBookName}/${page}`);
   }
+
 }
 
 module.exports = new Http();

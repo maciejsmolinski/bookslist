@@ -36,7 +36,7 @@ module.exports = (state, previousState, send) => {
 
       ${topSection()}
 
-      ${filters(book.filters)}
+      ${filters(books.filters)}
 
       ${booksList(books.list)}
 

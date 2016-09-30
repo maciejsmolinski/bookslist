@@ -16,7 +16,7 @@ const initial = {
         'financial', 'history', 'horror',
         'musical', 'sport', 'thriller',
       ],
-      genders: ['all', 'female', 'male'],
+      gender: ['all', 'female', 'male'],
     }
   },
   page: 1,

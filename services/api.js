@@ -23,14 +23,14 @@ class Api {
    *
    * @return {Promise}
    */
-  query(collection, query, limit = 10, page = 1) {
+  query(collection, query = {}, limit = 10, page = 1) {
     if (!collection) {
       return Promise.reject(new Error(
         `Api::query expected "collection" to be non-empty string. Received "${collection}" (${typeof collection}) instead`
       ));
     }
 
-    if (!query || typeof query === 'string' || Object.keys(query).length === 0) {
+    if (!query) {
       return Promise.reject(new Error(
         `Api::query expected "query" to be an object. Received "${query}" (${typeof query}) instead`
       ));
@@ -78,14 +78,17 @@ class Api {
    *
    * @return {Promise}
    */
-  byGenre (genre = '', limit = 10, page = 1) {
+  byGenre (genre = 'all', limit = 10, page = 1) {
     if (!genre) {
       return Promise.reject(new Error(
         `Api::byGenre expected "genre" to be non-empty string. Received "${genre}" (${typeof genre}) instead`
       ));
     }
 
-    return this.query('books', { genre }, limit, page);
+    // 'all' means no genre filtering
+    const query = genre === 'all' ? { } : { genre };
+
+    return this.query('books', query, limit, page);
   }
 
   /**
@@ -103,14 +106,17 @@ class Api {
    *
    * @return {Promise}
    */
-  byAuthorGender (gender = '', limit = 10, page = 1) {
-    if (['male', 'female'].indexOf(gender) === -1) {
+  byAuthorGender (gender = 'all', limit = 10, page = 1) {
+    if (['male', 'female', 'all'].indexOf(gender) === -1) {
       return Promise.reject(new Error(
-        `Api::byAuthorGender expected "gender" to be either "male" or "female". Received "${gender}" (${typeof gender}) instead`
+        `Api::byAuthorGender expected "gender" to be "all", "male" or "female". Received "${gender}" (${typeof gender}) instead`
       ));
     }
 
-    return this.query('books', { 'author.gender': gender }, limit, page);
+    // 'all' means no genre filtering
+    const query = gender === 'all' ? { } : { 'author.gender': gender };
+
+    return this.query('books', query, limit, page);
   }
 }
 

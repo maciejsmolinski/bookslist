@@ -2,7 +2,6 @@
 @import "helpers";
 
 .filters {
-  @extend %center-aligned;
   @extend %narrow;
 
   border: 1px solid #efefef;
@@ -14,12 +13,11 @@
 
   @include screen-big {
     flex-direction: row;
-    justify-content: flex-end;
-    width: 1000px;
+    justify-content: center;
   }
 
   &__item {
-    margin: 1em;
+    margin: .5em 1em;
 
     @include screen-big {
       margin: 0 0 0 2em;
@@ -27,7 +25,13 @@
   }
 
   &__label {
+    display: block;
+
     margin-right: .5em;
+
+    @include screen-big {
+      display: inline;
+    }
   }
 
 }

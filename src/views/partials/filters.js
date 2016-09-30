@@ -6,7 +6,9 @@ module.exports = () =>
     <section class="filters">
 
       <div class="filters__item">
-        <strong>Sort by:</strong>
+        <strong class="filters__label">
+          Sort by:
+        </strong>
         <span>Author Gender: A-Z</span>
         |
         <span>Book Genre: None</span>

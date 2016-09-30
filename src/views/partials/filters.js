@@ -6,12 +6,18 @@ module.exports = () =>
     <section class="filters">
 
       <div class="filters__item">
-        <strong class="filters__label">
-          Sort by:
-        </strong>
-        <span>Author Gender: A-Z</span>
-        |
-        <span>Book Genre: None</span>
+        <label>
+          <strong class="filters__label">
+            Sort by:
+          </strong>
+          <select class="filters__options">
+            <option>---</option>
+            <option>Author Gender: Female First</option>
+            <option>Author Gender: Male First</option>
+            <option>Genre: A-Z</option>
+            <option>Genre: Z-A</option>
+          </select>
+        </label>
       </div>
 
       <div class="filters__item">
@@ -19,7 +25,7 @@ module.exports = () =>
           <strong class="filters__label">
             Book Genre:
           </strong>
-          <select>
+          <select class="filters__options">
             ${
               [
                 'all', 'action', 'animation', 'comedy',
@@ -37,9 +43,9 @@ module.exports = () =>
           <strong class="filters__label">
             Author Gender:
           </strong>
-          <select>
+          <select class="filters__options">
             ${
-              ['all', 'male', 'female'].map((option) => html`<option>${option}</option>`)
+              ['all', 'female', 'male'].map((option) => html`<option>${option}</option>`)
             }
           </select>
         </label>

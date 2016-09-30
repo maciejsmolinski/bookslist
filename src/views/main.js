@@ -32,13 +32,15 @@ module.exports = (state, previousState, send) => {
   return html`
     <main data-page="books">
 
-      ${errors.length ? html`<div>Errors found: ${errors}!</div>` : html``}
-
       ${topSection()}
 
-      ${filters(books.filters)}
+      ${filters(books.filters, send)}
 
       ${booksList(books.list)}
+
+      ${errors.map(error => html`<div class="indicator indicator--warning">${error}</div>`)}
+
+      ${books.isLoading ? html`<div class="indicator">loading...</div>` : html``}
 
     </main>
   `;

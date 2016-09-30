@@ -1,0 +1,16 @@
+.indicator {
+
+  background: #efefef;
+  border-radius: 3px;
+  margin: 1em;
+  padding: 1em;
+
+  @include screen-big {
+    margin: 1em auto;
+    width: 1000px;
+  }
+
+  &--warning {
+    background: #f1c40f;
+  }
+}

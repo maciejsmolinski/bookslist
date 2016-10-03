@@ -1,8 +1,10 @@
 const port = process.env.PORT || 4242;
 const serve = require('koa-static');
-const server = require('koa')();
-const layout = require('fs').readFileSync('./index.html', { encoding: 'utf-8' });
 const router = require('koa-router')();
+const server = require('koa')();
+const client = require('./src/app');
+const template = require('fs').readFileSync('./index.html', { encoding: 'utf-8' });
+const layout = (contents) => template.replace('<body>', `<body>${contents}`);
 
 const api = require('./services/api');
 
@@ -35,9 +37,9 @@ router.get('/api/:maleOrFemale/:bookGenre/:sortAuthorName/:sortBookName/:page?',
   }
 });
 
-// Main Request Handler
+// Main Request Handler: Serve index.html with pre-rendered client app with empty state
 router.get('/', function * () {
-  this.body = layout; // Simply serve index.html contents
+  this.body = layout(client.toString(this.path));
 });
 
 // Bind routes to koa server

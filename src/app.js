@@ -11,5 +11,5 @@ app.router((route) => [
 if (module && module.parent) {
   module.exports = app;
 } else {
-  document.body.replaceChild(app.start(), document.body.firstChild);
+  document.body.replaceChild(app.start(), document.querySelector('[data-app]'));
 }

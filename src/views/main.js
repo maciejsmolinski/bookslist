@@ -30,13 +30,13 @@ module.exports = (state, previousState, send) => {
   }
 
   return html`
-    <main data-page="books">
+    <main data-app>
 
       ${topSection()}
 
       ${filters(books.filters, send)}
 
-      ${booksList(books.list)}
+      ${books.list.length ? booksList(books.list) : html``}
 
       ${errors.map(error => html`<div class="indicator indicator--warning">${error}</div>`)}
 

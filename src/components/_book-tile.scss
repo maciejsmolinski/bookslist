@@ -55,19 +55,67 @@
   &__author-line {
     @extend %narrow;
     @extend %block;
+
+    &--male {
+      color: #3498db;
+    }
+    &--female {
+      color: #9b59b6;
+    }
   }
-
   &__genre {
-    @extend %italic;
     @extend %narrow;
+    @extend %inline-block;
 
-    display: block;
+    background: #dcdcdc;
     margin-top: 1em;
+    padding: .5em;
   }
   &__publication {
-    @extend %italic;
     @extend %narrow;
-    display: block;
+    @extend %inline-block;
+
+    background: #dcdcdc;
+    padding: .5em;
   }
+
+  // Modifier: Indicate Books Published on Halloween
+  &--halloween {
+    @extend %relative;
+
+    background: #2f2f51;
+    color: #ca8612;
+
+    &:after {
+      @extend %absolute;
+
+      background: #ca8612;
+      bottom: 0;
+      color: #fff;
+      content: "Published on halloween!";
+      padding: 1em;
+      right: 0;
+    }
+  }
+
+  // Modifier: Indicate Books Published on Halloween
+  &--financial {
+    @extend %relative;
+
+    background: #b5b5b5;
+    color: #58528e;
+
+    &:after {
+      @extend %absolute;
+
+      background: #58528e;
+      bottom: 0;
+      color: #fff;
+      content: "Published on the Last Friday of the month!";
+      padding: 1em;
+      right: 0;
+    }
+  }
+
 
 }

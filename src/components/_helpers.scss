@@ -26,12 +26,20 @@
   display: block;
 }
 
+%inline-block {
+  display: inline-block;
+}
+
 %flex {
   display: flex;
 }
 
+%absolute {
+  position: absolute;
+}
+
 %relative {
-  display: relative;
+  position: relative;
 }
 
 %narrow {

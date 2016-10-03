@@ -102,7 +102,19 @@ class Api {
         sort
           .filter(item => item.value !== 'none')
           .forEach(item => {
-              baseQuery = baseQuery.simplesort(item.type, item.value === 'desc');
+              if (item.type === 'author.name') {
+                baseQuery = baseQuery.sort((item1, item2) => {
+                  if (item1.author.name < item2.author.name) {
+                    return item.value === 'asc' ? -1 : 1;
+                  }
+                  if (item1.author.name > item2.author.name) {
+                    return item.value === 'asc' ? 1 : -1;
+                  }
+                  return 0;
+                });
+              } else {
+                baseQuery = baseQuery.simplesort(item.type, item.value === 'desc');
+              }
           });
       }
 

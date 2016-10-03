@@ -1,7 +1,23 @@
 const html = require('choo/html');
 
-module.exports = (filters) =>
-  html`
+module.exports = (filters, send) => {
+
+  const onChange = (event) => {
+    const dropdown = event.target;
+    const selected = dropdown[dropdown.selectedIndex];
+
+    const filter = (() => {
+      try {
+        return JSON.parse(selected.dataset.filter);
+      } catch (_) {
+        return {};
+      }
+    })();
+
+    send('books:changeFilters', filter);
+  };
+
+  return html`
 
     <section class="filters">
 
@@ -10,12 +26,12 @@ module.exports = (filters) =>
           <strong class="filters__label">
             Sort by:
           </strong>
-          <select class="filters__options">
+          <select class="filters__options" onchange=${onChange}>
             <option>---</option>
-            <option>Author Name: A-Z</option>
-            <option>Author Name: Z-A</option>
-            <option>Book Name: A-Z</option>
-            <option>Book Name: Z-A</option>
+            <option data-filter='{ "sortAuthorName": "asc" }'>Author Name: A-Z</option>
+            <option data-filter='{ "sortAuthorName": "desc" }'>Author Name: Z-A</option>
+            <option data-filter='{ "sortBookName": "asc" }'>Book Name: A-Z</option>
+            <option data-filter='{ "sortBookName": "desc" }'>Book Name: Z-A</option>
           </select>
         </label>
       </div>
@@ -45,3 +61,5 @@ module.exports = (filters) =>
     </section>
 
   `;
+
+}

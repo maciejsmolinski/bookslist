@@ -97,22 +97,21 @@ module.exports = {
 
       send('books:loading', done);
 
-      // If in `append` mode, increase page number
-      if (options && options.append) {
-        send('books:nextPage', done);
-      }
-
       api
         .search(
           state.filters.gender,
           state.filters.genre,
           state.filters.sortAuthorName,
           state.filters.sortBookName,
-          state.page
+          options && options.append ? state.page + 1 : state.page
         )
         .then(books => {
           send(options && options.append ? 'books:listAppend' : 'books:list', books, done);
           send('books:loaded', done);
+
+          if (options && options.append) {
+            send('books:nextPage', done);
+          }
         })
         .catch((error) => send('books:failure', error, done))
         ;

@@ -11,7 +11,12 @@ const api = require('./services/api');
 // Static Assets Serving (from `/`)
 server.use(serve('./dest'));
 
-// API Generic Search Route
+// Main Request Handler: Serve index.html with pre-rendered client app representing empty state
+router.get('/', function * () {
+  this.body = layout(client.toString(this.path));
+});
+
+// API: Generic route querying database through the API Service
 router.get('/api/:maleOrFemale/:bookGenre/:sortAuthorName/:sortBookName/:page?', function * () {
   const genderFilters = [{ type: 'author.gender', value: this.params.maleOrFemale }];
   const genreFilters = [{ type: 'genre', value: this.params.bookGenre }];
@@ -21,8 +26,11 @@ router.get('/api/:maleOrFemale/:bookGenre/:sortAuthorName/:sortBookName/:page?',
   const filters = [].concat(genderFilters, genreFilters);
   const sorting = [].concat(authorSorting, bookNameSorting);
 
+  const itemsPerPage = 20;
+  const currentPage =  Number(this.params.page) || 1;
+
   try {
-    this.body = yield api.search(filters, sorting, 10, Number(this.params.page) || 1);
+    this.body = yield api.search(filters, sorting, itemsPerPage, currentPage);
   } catch (error) {
     // Keep error details in response headers for detailed explanation what happened
     this.set('X-Error-Details', String(error.message).replace(/\s+/g, ' '));
@@ -35,11 +43,6 @@ router.get('/api/:maleOrFemale/:bookGenre/:sortAuthorName/:sortBookName/:page?',
       status: 'error',
     };
   }
-});
-
-// Main Request Handler: Serve index.html with pre-rendered client app with empty state
-router.get('/', function * () {
-  this.body = layout(client.toString(this.path));
 });
 
 // Bind routes to koa server

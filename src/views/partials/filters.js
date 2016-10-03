@@ -49,7 +49,7 @@ module.exports = (filters, send) => {
       <div class="filters__item">
         <label>
           <strong class="filters__label">
-            Book Genre:
+            Show Genres:
           </strong>
           <select class="filters__options" onchange=${onChange}>
             ${filters.available.genre.map((option) => html`
@@ -62,7 +62,7 @@ module.exports = (filters, send) => {
       <div class="filters__item">
         <label>
           <strong class="filters__label">
-            Author Gender:
+            Show Author Genders:
           </strong>
           <select class="filters__options" onchange=${onChange}>
             ${filters.available.gender.map((option) => html`

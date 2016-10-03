@@ -15,11 +15,11 @@ module.exports = (state, previousState, send) => {
   /*
   * Lazy Loading:
   *
-  * Watch until fourth element from the end enters the screen
+  * Watch until eighth element from the end enters the screen
   * When it does, request additional data (lazy load)
   */
   if (books.list.length && !books.isLoading) {
-    const selector = '.books-list .book-tile:nth-last-child(4)';
+    const selector = '.books-list .book-tile:nth-last-child(8)';
     const observer = new IntersectionObserver(() => {
         observer.unobserve(document.querySelector(selector));
         send('books:fetch', { append: true });

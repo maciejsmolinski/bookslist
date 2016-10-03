@@ -43,6 +43,14 @@ router.get('/', function * () {
 // Bind routes to koa server
 server.use(router.routes());
 
+// Warm up database/api connection once event loop is free
+process.nextTick(() => {
+  require('./services/api')
+    .connection
+    .then(() => console.log('Database warmed up (loaded)'));
+});
+
+// Listen on previously specified port
 server.listen(port, () =>
   console.log(`Application ready and listens for requests on port ${port}`)
 );

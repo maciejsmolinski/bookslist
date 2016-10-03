@@ -2,6 +2,8 @@
 @import "helpers";
 
 .book-tile {
+  $module: &; // Cache module for later use with modifiers
+
   @extend %flex;
   @extend %border-box;
 
@@ -83,13 +85,13 @@
     @extend %relative;
 
     background: #2f2f51;
-    color: #ca8612;
+    color: #fff;
 
     &:after {
       @extend %absolute;
 
-      background: #ca8612;
-      border-radius: 0 0 5px 0;
+      background: #545479;
+      border-radius: 5px 0 5px 0;
       bottom: 0;
       color: #fff;
       content: "Published on halloween!";
@@ -102,14 +104,14 @@
   &--financial {
     @extend %relative;
 
-    background: #b5b5b5;
-    color: #58528e;
+    background: #2b455c;
+    color: #fff;
 
     &:after {
       @extend %absolute;
 
-      background: #58528e;
-      border-radius: 0 0 5px 0;
+      background: #315472;
+      border-radius: 5px 0 5px 0;
       bottom: 0;
       color: #fff;
       content: "Published on the Last Friday of the month!";

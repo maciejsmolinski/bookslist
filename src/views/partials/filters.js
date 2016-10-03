@@ -27,11 +27,21 @@ module.exports = (filters, send) => {
             Sort by:
           </strong>
           <select class="filters__options" onchange=${onChange}>
-            <option>---</option>
-            <option data-filter='{ "sortAuthorName": "asc" }'>Author Name: A-Z</option>
-            <option data-filter='{ "sortAuthorName": "desc" }'>Author Name: Z-A</option>
-            <option data-filter='{ "sortBookName": "asc" }'>Book Name: A-Z</option>
-            <option data-filter='{ "sortBookName": "desc" }'>Book Name: Z-A</option>
+            <option data-filter='{ "sortAuthorName": "none", sortBookName: "none" }'>
+              Default sorting
+            </option>
+            <option data-filter='{ "sortAuthorName": "asc", "sortBookName": "none" }'>
+              Author Name: A-Z
+            </option>
+            <option data-filter='{ "sortAuthorName": "desc", "sortBookName": "none" }'>
+              Author Name: Z-A
+            </option>
+            <option data-filter='{ "sortAuthorName": "none", "sortBookName": "asc" }'>
+              Book Name: A-Z
+            </option>
+            <option data-filter='{ "sortAuthorName": "none", "sortBookName": "desc" }'>
+              Book Name: Z-A
+            </option>
           </select>
         </label>
       </div>
@@ -41,8 +51,10 @@ module.exports = (filters, send) => {
           <strong class="filters__label">
             Book Genre:
           </strong>
-          <select class="filters__options">
-            ${filters.available.genre.map((option) => html`<option>${option}</option>`)}
+          <select class="filters__options" onchange=${onChange}>
+            ${filters.available.genre.map((option) => html`
+              <option data-filter='{ "genre": "${option}" }'>${option}</option>
+            `)}
           </select>
         </label>
       </div>
@@ -52,8 +64,10 @@ module.exports = (filters, send) => {
           <strong class="filters__label">
             Author Gender:
           </strong>
-          <select class="filters__options">
-            ${filters.available.gender.map((option) => html`<option>${option}</option>`)}
+          <select class="filters__options" onchange=${onChange}>
+            ${filters.available.gender.map((option) => html`
+              <option data-filter='{ "gender": "${option}" }'>${option}</option>
+            `)}
           </select>
         </label>
       </div>

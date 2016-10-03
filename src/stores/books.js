@@ -66,7 +66,7 @@ module.exports = {
      * send('books:updateFilters', { newFilter }, done);
      */
     updateFilters: (filter, state) => {
-      const filters = Object.assign({}, initial.filters, filter);
+      const filters = Object.assign({}, state.filters, filter);
 
       return Object.assign({}, state, { filters });
     },

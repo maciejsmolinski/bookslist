@@ -1,6 +1,28 @@
 class Api {
   constructor () {
     this.connection = require('./db')();
+
+    this.allowedGenres = [
+      'all',
+      'action',
+      'animation',
+      'comedy',
+      'documentary',
+      'family',
+      'fantasy',
+      'financial',
+      'history',
+      'horror',
+      'musical',
+      'sport',
+      'thriller',
+    ];
+
+    this.allowedGenders = [
+      'all',
+      'male',
+      'female',
+    ];
   }
 
   /**
@@ -34,9 +56,10 @@ class Api {
    * @return {Promise}
    */
   search(filters = [], sort = [], limit = 10, page = 1) {
-    const allowedGenres = ['all', 'action', 'animation', 'comedy', 'documentary', 'family', 'fantasy', 'financial', 'history', 'horror', 'musical', 'sport', 'thriller'];
-    const allowedGenders = ['all', 'male', 'female'];
-
+    /**
+     * Start with basic validation
+     * Return rejecting promise as soon as some parameters violate rules
+     */
     if (filters.some(item => ['genre', 'author.gender'].indexOf(item.type) === -1)) {
       return Promise.reject(new Error(`
         Api::search expected "filters" to have either "genre" or "author.gender" types.
@@ -44,16 +67,16 @@ class Api {
       `));
     }
 
-    if (filters.some(item => item.type === 'genre' && allowedGenres.indexOf(item.value) === -1)) {
+    if (filters.some(item => item.type === 'genre' && this.allowedGenres.indexOf(item.value) === -1)) {
       return Promise.reject(new Error(`
-        Api::search expected "genre" value to be one of the following: ${allowedGenres}.
+        Api::search expected "genre" value to be one of the following: ${this.allowedGenres}.
         Received "${JSON.stringify(filters)}" (${typeof filters}) instead
       `));
     }
 
-    if (filters.some(item => item.type === 'author.gender' && allowedGenders.indexOf(item.value) === -1)) {
+    if (filters.some(item => item.type === 'author.gender' && this.allowedGenders.indexOf(item.value) === -1)) {
       return Promise.reject(new Error(`
-        Api::search expected "gender" value to be one of the following: ${allowedGenders}.
+        Api::search expected "gender" value to be one of the following: ${this.allowedGenders}.
         Received "${JSON.stringify(filters)}" (${typeof filters}) instead
       `));
     }
@@ -79,11 +102,23 @@ class Api {
       `));
     }
 
+    /**
+     * If none of the parameters broke the rules,
+     * return query promise
+     */
     return this.connection.then(connection => {
       const offset = (page - 1) * limit;
 
+      /**
+       * Keep a reference to base query so that filters / sorting
+       * can be applied on top of it
+       */
       let baseQuery = connection.getCollection('books').chain();
 
+      /**
+       * Remove filters that do not amend search results (value=all)
+       * join them with `AND` strategy
+       */
       if (filters.length) {
         baseQuery = baseQuery
                       .find({
@@ -98,6 +133,10 @@ class Api {
                       ;
       }
 
+      /**
+       * Apply either simplesort(property, isDesc:Boolean) for non-nested sorting
+       * or use sort(comparison:Function) for nested property sorting
+       */
       if (sort.length) {
         sort
           .filter(item => item.value !== 'none')
@@ -118,6 +157,10 @@ class Api {
           });
       }
 
+      /**
+       * Query data using previously defined filters and sorting rules
+       * with specified offset and limit (pagination)
+       */
       return baseQuery
                .offset(offset)
                .limit(limit)

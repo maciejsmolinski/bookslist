@@ -3,12 +3,13 @@ const date = require('./date');
 
 // Helper function to check books agains specials definitions (indication)
 const specials = require('../helpers/specials');
+const slug = (text) => String(text).toLowerCase().replace(/\W/g, '-');
 
 module.exports = (book) =>
   html`
 
     <div class="book-tile ${specials(book).map(special => `book-tile--${special}`)}">
-      <img src="/images/cover.jpg"
+      <img src="/images/genre/${slug(book.genre)}.jpg"
            class="book-tile__cover"
            alt="${book.name}">
       <p class="book-tile__details">

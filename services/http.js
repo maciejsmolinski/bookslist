@@ -69,7 +69,7 @@ class Http {
       `));
     }
 
-    if (['all', 'action', 'animation', 'comedy', 'documentary', 'family', 'fantasy', 'financial', 'history', 'horror', 'musical', 'sport', 'thriller',].indexOf(bookGenre) === -1) {
+    if (['all', 'action', 'animation', 'comedy', 'documentary', 'family', 'fantasy', 'financial', 'history', 'horror', 'musical', 'sport', 'thriller'].indexOf(bookGenre) === -1) {
       return Promise.reject(new Error(`
         Http::search expected "bookGenre" to be "all", "action", "animation", "comedy", "documentary", "family", "fantasy", "financial", "history", "horror", "musical", "sport" or "thriller".
         Received "${bookGenre}" (${typeof bookGenre}) instead

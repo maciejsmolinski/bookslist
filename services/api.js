@@ -34,9 +34,26 @@ class Api {
    * @return {Promise}
    */
   search(filters = [], sort = [], limit = 10, page = 1) {
+    const allowedGenres = ['all', 'action', 'animation', 'comedy', 'documentary', 'family', 'fantasy', 'financial', 'history', 'horror', 'musical', 'sport', 'thriller'];
+    const allowedGenders = ['all', 'male', 'female'];
+
     if (filters.some(item => ['genre', 'author.gender'].indexOf(item.type) === -1)) {
       return Promise.reject(new Error(`
         Api::search expected "filters" to have either "genre" or "author.gender" types.
+        Received "${JSON.stringify(filters)}" (${typeof filters}) instead
+      `));
+    }
+
+    if (filters.some(item => item.type === 'genre' && allowedGenres.indexOf(item.value) === -1)) {
+      return Promise.reject(new Error(`
+        Api::search expected "genre" value to be one of the following: ${allowedGenres}.
+        Received "${JSON.stringify(filters)}" (${typeof filters}) instead
+      `));
+    }
+
+    if (filters.some(item => item.type === 'author.gender' && allowedGenders.indexOf(item.value) === -1)) {
+      return Promise.reject(new Error(`
+        Api::search expected "gender" value to be one of the following: ${allowedGenders}.
         Received "${JSON.stringify(filters)}" (${typeof filters}) instead
       `));
     }
@@ -70,20 +87,24 @@ class Api {
       if (filters.length) {
         baseQuery = baseQuery
                       .find({
-                        $and: filters.map(filter => {
-                          return {
-                            [filter.type]: filter.value
-                          };
-                        })
+                        $and: filters
+                                .filter(filter => filter.value !== 'all')
+                                .map(filter => {
+                                  return {
+                                    [filter.type]: filter.value
+                                  };
+                                })
                       })
                       ;
       }
 
       if (sort.length) {
         sort.forEach(item => {
-          baseQuery = baseQuery
-                        .simplesort(item.type, item.value === 'desc')
-                        ;
+          if (item.value !== 'none') {
+              baseQuery = baseQuery
+                            .simplesort(item.type, item.value === 'desc')
+                            ;
+          }
         });
       }
 

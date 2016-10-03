@@ -99,13 +99,11 @@ class Api {
       }
 
       if (sort.length) {
-        sort.forEach(item => {
-          if (item.value !== 'none') {
-              baseQuery = baseQuery
-                            .simplesort(item.type, item.value === 'desc')
-                            ;
-          }
-        });
+        sort
+          .filter(item => item.value !== 'none')
+          .forEach(item => {
+              baseQuery = baseQuery.simplesort(item.type, item.value === 'desc');
+          });
       }
 
       return baseQuery

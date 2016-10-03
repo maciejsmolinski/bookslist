@@ -19,10 +19,10 @@ module.exports = (book) =>
           by ${book.author.name}
         </span>
 
-        <span class="book-tile__genre">
+        <span class="book-tile__tag">
           ${book.genre}
         </span>
-        <span class="book-tile__publication">
+        <span class="book-tile__tag">
           Published: ${date(book.published * 1000)}
         </span>
       </p>

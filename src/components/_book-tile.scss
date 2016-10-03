@@ -52,6 +52,7 @@
     @extend %bold;
     @extend %block;
   }
+
   &__author-line {
     @extend %narrow;
     @extend %block;
@@ -63,19 +64,14 @@
       color: #9b59b6;
     }
   }
-  &__genre {
+
+  &__tag {
     @extend %narrow;
     @extend %inline-block;
 
-    background: #dcdcdc;
+    background: #b3b3b3;
+    background: rgba(0,0,0,.3);
     margin-top: 1em;
-    padding: .5em;
-  }
-  &__publication {
-    @extend %narrow;
-    @extend %inline-block;
-
-    background: #dcdcdc;
     padding: .5em;
   }
 
@@ -90,6 +86,7 @@
       @extend %absolute;
 
       background: #ca8612;
+      border-radius: 0 0 5px 0;
       bottom: 0;
       color: #fff;
       content: "Published on halloween!";
@@ -109,6 +106,7 @@
       @extend %absolute;
 
       background: #58528e;
+      border-radius: 0 0 5px 0;
       bottom: 0;
       color: #fff;
       content: "Published on the Last Friday of the month!";

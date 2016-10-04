@@ -9,8 +9,8 @@ const layout = (contents) => template.replace('<body>', `<body>${contents}`);
 // Import API service that will query data
 const api = require('./services/api');
 
-// Static Assets Serving (from `/`)
-server.use(serve('./dest'));
+// Static Assets Serving. Cache in browser for 10 minutes
+server.use(serve('./dest', { maxage: 1000 * 60 * 10 }));
 
 // Main Request Handler: Serve index.html with pre-rendered client app representing empty state
 router.get('/', function * () {

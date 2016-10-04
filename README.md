@@ -87,6 +87,10 @@ Business Requirements:
 
 ![Responsiveness: Mobile-First](https://cdn.pbrd.co/images/14QBd7K4e.gif)
 
+## Performance: Lazy Loading
+
+![Performance: Lazy Loading](https://cdn.pbrd.co/images/aO4YuDlVn.gif)
+
 # Additional Questions
 
 Please feel free to raise any questions with me either using issues or reach directly me on twitter [@maciejsmolinski](https://twitter.com/maciejsmolinski)

@@ -48,9 +48,11 @@ To make things simple and self-contained thus easy to setup, the application is 
 Since the application is API based, most of the potential errors during development might come from the API requests.
 The convention used in this application is to return a simple JSON object with the error status and hide details from most of the users.
 
+![JSON Error Response](https://cdn.pbrd.co/images/aXi3oKspH.png)
+
 For development purposes though, you can inspect error details in HTTP `X-Error-Details` header, see:
 
-![HTTP Header Containing API error details](https://cdn.pbrd.co/images/15MvYCoHs.png)
+![HTTP Header Containing API error details](https://cdn.pbrd.co/images/aXmDOWj2a.png)
 
 ## Presentation
 

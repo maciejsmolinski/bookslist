@@ -77,14 +77,14 @@ class Api {
     if (filters.some(item => item.type === 'author.gender' && this.allowedGenders.indexOf(item.value) === -1)) {
       return Promise.reject(new Error(`
         Api::search expected "gender" value to be one of the following: ${this.allowedGenders}.
-        Received "${JSON.stringify(filters)}" (${typeof filters}) instead
+        Received filters "${JSON.stringify(filters)}" (${typeof filters}) instead
       `));
     }
 
     if (sort.some(item => ['name', 'author.name'].indexOf(item.type) === -1)) {
       return Promise.reject(new Error(`
         Api::search expected "sort" to be either "name" or "author.name".
-        Received "${JSON.stringify(sort)}" (${typeof sort}) instead
+        Received sorting options "${JSON.stringify(sort)}" (${typeof sort}) instead
       `));
     }
 

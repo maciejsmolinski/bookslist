@@ -83,4 +83,4 @@ Business Requirements:
 
 # Additional Questions
 
-Please feel free to raise any questions with me either using issues or reach me on twitter [@maciejsmolinski](https://twitter.com/maciejsmolinski)
+Please feel free to raise any questions with me either using issues or reach directly me on twitter [@maciejsmolinski](https://twitter.com/maciejsmolinski)

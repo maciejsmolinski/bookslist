@@ -1,6 +1,8 @@
 # BooksList
 
-A simple JS based (Node.js / Front-End / Database) project focused on using modern browser APIs to achieve great results with minimal effort.
+A simple, responsive, JS-based (Node.js / Front-End / Database) project focused on using modern browser APIs to achieve great results with minimal effort.
+
+![](https://cdn.pbrd.co/images/aNgeUDJoO.png)
 
 # Requirements
 

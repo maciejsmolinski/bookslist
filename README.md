@@ -42,6 +42,15 @@ To make things simple and self-contained thus easy to setup, the application is 
 * **Isomorphism**: Thanks to [`webpack`](https://webpack.github.io) bundling and [`Choo.js`](https://github.com/yoshuawuyts/choo) architecture, some of the code could have been shared between the front-end and the back-end resulting in basic layout being rendered before the scripts load (rather than blank page)
 * **Styles**: [`SASS`](http://sass-lang.com) and [`Autoprefixer`](https://github.com/postcss/autoprefixer) - thanks to [`SASS`](http://sass-lang.com), the code can be split into smaller chunks and some repetition can be avoided. Thanks to [`autoprefixer`](https://github.com/postcss/autoprefixer) , the output code will always be compatible with most common browsers (vendor prefixes applied to CSS based on current usage statistics)
 
+# Errors handling
+
+Since the application is API based, most of the potential errors during development might come from the API requests.
+The convention used in this application is to return a simple JSON object with the error status and hide details from most of the users.
+
+For development purposes though, you can inspect error details in HTTP `X-Error-Details` header, see:
+
+![HTTP Header Containing API error details](https://cdn.pbrd.co/images/15MvYCoHs.png)
+
 # Presentation
 
 Business Requirements:

@@ -6,6 +6,7 @@ const client = require('./src/app');
 const template = require('fs').readFileSync('./index.html', { encoding: 'utf-8' });
 const layout = (contents) => template.replace('<body>', `<body>${contents}`);
 
+// Import API service that will query data
 const api = require('./services/api');
 
 // Static Assets Serving (from `/`)
@@ -49,11 +50,9 @@ router.get('/api/:maleOrFemale/:bookGenre/:sortAuthorName/:sortBookName/:page?',
 server.use(router.routes());
 
 // Warm up database/api connection once event loop is free
-process.nextTick(() => {
-  require('./services/api')
-    .connection
-    .then(() => console.log('Database warmed up (loaded)'));
-});
+process.nextTick(() =>
+  api.connection.then(() => console.log('Database warmed up (loaded)'))
+);
 
 // Listen on previously specified port
 server.listen(port, () =>

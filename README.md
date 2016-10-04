@@ -16,9 +16,9 @@ Install dependencies with `npm install`
 
 # Generate Data
 
-* Generate 100K of books data with `node generator.js`.
+* Download pre-generated set of records with `curl https://maciejsmolinski.com/books.json > data/books.json`
+* Alternatively, generate 100K of books data with `node generator.js`.
 * If you want to generate 1 million records, please use the following command: `for i in {1..10}; do node --max_old_space_size=4096 generator.js; done` instead (please notice increased heap size flag)
-* Alternatively, download pre-generated set of records with `curl https://maciejsmolinski.com/books.json > data/books.json`
 
 # Workflow
 
@@ -32,7 +32,7 @@ so that the server reloads automatically when changes are being made in the proj
 
 To make things simple and self-contained thus easy to setup, the application is fully JavaScript based including the server, the client as well as the database.
 
-* **Database**: [`Loki.js`](lokijs.org/) - [`MongoDB-like`](https://www.mongodb.com) JS based server supporting in-memory db as well as hard-durability (file storage). It comes at a cost (e.g. speed) thus production-ready database is suggested for production site.
+* **Database**: [`Loki.js`](lokijs.org/) - [`MongoDB-like`](https://www.mongodb.com) JS based server supporting in-memory db as well as hard-durability (file storage). It comes at a cost (e.g. speed) thus production-ready database is suggested for production site. Database warms up once server routes are setup so that the first request can be handled much quicker.
 * **Server**: [`Node.js`](https://nodejs.org/) / [`Koa.js`](http://koajs.com) - a simple server framework supporting ES6 generators that make asynchronous operations look like they were synchronous (thus easier to maintain and debug)
 * **Front-End**: [`Choo.js`](https://github.com/yoshuawuyts/choo) - Fully-Featured Reactive Client-Side framework supporting Routing + Push State / Redux-like stores / Effects / Subscriptions / Least possible changes to the DOM tree ([`Morphdom`](https://github.com/patrick-steele-idem/morphdom)) out of the box. Framework with a clean [Elm-like](https://guide.elm-lang.org/architecture/) architecture in mind.
 * **Lazy Loading**: [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) - Since the application is heavy on data (1m records), in order to load the application quickly lazy loading must have been used. In order to achieve best performance as well as future standards-compliance, IntersectionObserver along with a polyfill have been used.

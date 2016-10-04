@@ -105,6 +105,21 @@ Business Requirements:
 
 ![Performance: Lazy Loading](https://cdn.pbrd.co/images/aO4YuDlVn.gif)
 
+## Potential further improvements
+
+Thinking about production site, these are things that could be improved in order to make the app run smoothly on production environment:
+
+* Add indexes in the database to speed up sophisticated searches (e.g. when filtering / sorting comes into play)
+* Normalize data, use separate collections rather than nested documents and query things by reference
+* Leverage browser caching by using [`Cache-Control` HTTP headers](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en)
+* Use process manager such as [`PM2`](https://github.com/Unitech/pm2) to manage, start and restart processes without a hassle
+* Minify CSS / JavaScript bundles to serve as small static assets as possible
+* Instead of optimizing images manually, use tools such as [`gulp-imagemin`](https://github.com/sindresorhus/gulp-imagemin) and plug them into your assets pipeline
+* Not only lazy load data on scroll but load also images whenever they enter the screen
+* Use [`jsonld`](http://json-ld.org) / [`schema.org`](http://schema.org) to present data in a machine-readable way to the search engines. Plus manage page title and meta tags more intelligently.
+
+The list of potential improvements is much longer, it might consist of `typed javascript` to make your code more bulletproof, `service workers` to make your app work at least partially offline, `web workers` to offload some work and process it in the background, using `jsdom` to potentially pre-render loaded app state rather than empty one, introducing more sophisticated `routing` so the app can load with pre-selected filters when loaded from bookmarks, better `error-handling` so that the app re-tries to request data again whenever the API failed or went down and plenty more.
+
 ## Additional Questions
 
 Please feel free to raise any questions with me either using issues or reach directly me on twitter [@maciejsmolinski](https://twitter.com/maciejsmolinski)

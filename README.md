@@ -12,6 +12,7 @@ You can download Node.js from https://nodejs.org/en/
 
 ## Setup
 
+* Clone the repository and change directory: `git clone https://github.com/maciejsmolinski/bookslist.git && cd bookslist`
 * Install dependencies with `npm install`
 * Download pre-generated set of records with `curl https://maciejsmolinski.com/books.json > data/books.json`
 * Compile all assets once with `npm run build` or compile and watch for file changes with `npm run watch`

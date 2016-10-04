@@ -1,4 +1,5 @@
 const html = require('choo/html');
+const filter = require('./filter');
 
 module.exports = (filters, send) => {
 
@@ -21,57 +22,9 @@ module.exports = (filters, send) => {
 
     <section class="filters">
 
-      <div class="filters__item">
-        <label>
-          <strong class="filters__label">
-            Show Genres:
-          </strong>
-          <select class="filters__options" onchange=${onChange}>
-            ${filters.available.genre.map((option) => html`
-              <option data-filter='{ "genre": "${option}" }'>${option}</option>
-            `)}
-          </select>
-        </label>
-      </div>
-
-      <div class="filters__item">
-        <label>
-          <strong class="filters__label">
-            Show Author Genders:
-          </strong>
-          <select class="filters__options" onchange=${onChange}>
-            ${filters.available.gender.map((option) => html`
-              <option data-filter='{ "gender": "${option}" }'>${option}</option>
-            `)}
-          </select>
-        </label>
-      </div>
-
-
-      <div class="filters__item">
-        <label>
-          <strong class="filters__label">
-            Sort by:
-          </strong>
-          <select class="filters__options" onchange=${onChange}>
-            <option data-filter='{ "sortAuthorName": "none", sortBookName: "none" }'>
-              Default sorting
-            </option>
-            <option data-filter='{ "sortAuthorName": "asc", "sortBookName": "none" }'>
-              Author Name: A-Z
-            </option>
-            <option data-filter='{ "sortAuthorName": "desc", "sortBookName": "none" }'>
-              Author Name: Z-A
-            </option>
-            <option data-filter='{ "sortAuthorName": "none", "sortBookName": "asc" }'>
-              Book Name: A-Z
-            </option>
-            <option data-filter='{ "sortAuthorName": "none", "sortBookName": "desc" }'>
-              Book Name: Z-A
-            </option>
-          </select>
-        </label>
-      </div>
+      ${filter('Show Genres', filters.available.genre, onChange)}
+      ${filter('Show Author Genders:', filters.available.gender, onChange)}
+      ${filter('Sort by:', filters.available.sorting, onChange)}
 
     </section>
 

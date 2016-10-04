@@ -11,8 +11,15 @@ const initial = {
     sortAuthorName: 'none',
     sortBookName: 'none',
     available: {
-      genre: ENUM.genres,
-      gender: ENUM.genders,
+      genre: ENUM.genres.map(genre => ({ label: genre, value: { genre } })),
+      gender: ENUM.genders.map(gender => ({ label: gender, value: { gender } })),
+      sorting: [
+        { label: 'Default sorting', value: { sortAuthorName: 'none', sortBookName: 'none' } },
+        { label: 'Author Name: A-Z', value: { sortAuthorName: 'asc', sortBookName: 'none' } },
+        { label: 'Author Name: Z-A', value: { sortAuthorName: 'desc', sortBookName: 'none' } },
+        { label: 'Book Name: A-Z', value: { sortAuthorName: 'none', sortBookName: 'asc' } },
+        { label: 'Book Name: Z-A', value: { sortAuthorName: 'none', sortBookName: 'desc' } },
+      ]
     }
   },
   page: 1,

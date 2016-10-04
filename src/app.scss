@@ -85,10 +85,10 @@
 @import "components/helpers";
 @import "components/mixins";
 
-// Import custom components
-@import "components/top-section";
-@import "components/header";
-@import "components/filters";
-@import "components/books-list";
+// Import individual component styles
 @import "components/book-tile";
+@import "components/books-list";
+@import "components/filters";
+@import "components/header";
 @import "components/indicator";
+@import "components/top-section";

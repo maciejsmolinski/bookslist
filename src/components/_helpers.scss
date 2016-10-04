@@ -8,60 +8,59 @@
 //
 //
 // Important Note:
-// Placeholder selectors don't work well with media queries. Things like
 //
-//   @include screen-big {
-//     @extend %bold;
-//   }
+//   Placeholder selectors don't work well with media queries. Things like
 //
-// Will NOT work!
+//     @include screen-big {
+//       @extend %bold;
+//     }
 //
-//
+//   Will NOT work!
 
-%border-box {
-  box-sizing: border-box;
+%absolute {
+  position: absolute;
 }
 
 %block {
   display: block;
 }
 
-%inline-block {
-  display: inline-block;
-}
-
-%flex {
-  display: flex;
-}
-
-%absolute {
-  position: absolute;
-}
-
-%relative {
-  position: relative;
-}
-
-%narrow {
-  font-weight: 200;
-}
-
 %bold {
   font-weight: 500;
 }
 
-%center-aligned {
-  text-align: center;
+%border-box {
+  box-sizing: border-box;
 }
 
 %capitalized {
   text-transform: capitalize;
 }
 
-%uppercased {
-  text-transform: uppercase;
+%center-aligned {
+  text-align: center;
+}
+
+%flex {
+  display: flex;
+}
+
+%inline-block {
+  display: inline-block;
 }
 
 %italic {
   font-style: italic;
+}
+
+%narrow {
+  font-weight: 200;
+}
+
+%relative {
+  position: relative;
+}
+
+%uppercased {
+  text-transform: uppercase;
 }

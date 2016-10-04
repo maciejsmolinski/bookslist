@@ -1,16 +1,14 @@
 .book-tile {
-  $module: &; // Cache module for later use with modifiers
-
-  @extend %flex;
   @extend %border-box;
+  @extend %flex;
 
   background: #fff;
   border: 1px solid #efefef;
   border-radius: 5px;
   box-shadow: -2px 2px 5px #fbfbfb;
-  font-size: .875rem; // 14px
   flex-direction: column;
   flex-wrap: nowrap;
+  font-size: .875rem; // 14px
   margin: 1em 0;
   padding: 2em;
   width: 100%;
@@ -49,13 +47,13 @@
   }
 
   &__title {
-    @extend %bold;
     @extend %block;
+    @extend %bold;
   }
 
   &__author-line {
-    @extend %narrow;
     @extend %block;
+    @extend %narrow;
 
     margin: .5em 0 0;
 
@@ -68,8 +66,8 @@
   }
 
   &__tag {
-    @extend %narrow;
     @extend %inline-block;
+    @extend %narrow;
 
     background: #b3b3b3;
     background: rgba(0,0,0,.3);

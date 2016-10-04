@@ -1,9 +1,9 @@
 .filters {
+  @extend %flex;
   @extend %narrow;
 
   border: 1px solid #efefef;
   border-width: 0 0 1px 0;
-  display: flex;
   flex-direction: column;
   margin: 0 auto 1em;
   padding: 1em 0;

@@ -21,16 +21,11 @@ const settings = {
  */
 const chance = require('chance').Chance();
 
+const ENUM = require('./services/enum');
+
 const data = {
-  genres: [
-    'action', 'animation', 'comedy',
-    'documentary', 'family', 'horror',
-    'musical', 'financial', 'sport',
-    'fantasy', 'history', 'thriller',
-  ],
-  genders: [
-    'female', 'male',
-  ],
+  genres: ENUM.genres.slice(1),   // Remove first 'all' item
+  genders: ENUM.genders.slice(1), // Remove first 'all' item
   names: {
     male: [
       'Leonard', 'Sheldon', 'Howard', 'Rajesh', 'Stuart',

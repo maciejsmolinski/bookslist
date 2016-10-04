@@ -1,8 +1,14 @@
+/**
+ * Services serve generic purpose, they either do something or hold something.
+ */
+
 const superagent = require('superagent');
+const ENUM = require('./enum');
 
 /**
- * Mimic database querying API via HTTP
- */
+* Http exposes HTTP service querying api so that front-end (as well as the back-end if needed)
+* can talk to the API seamlessly with Promises
+*/
 class Http {
   constructor () {
     this.base = '/api';
@@ -62,28 +68,28 @@ class Http {
    * @return {Promise}
    */
   search (maleOrFemale = 'all', bookGenre = 'all', sortAuthorName = 'none', sortBookName = 'none', page = 1) {
-    if (['all', 'male', 'female'].indexOf(maleOrFemale) === -1) {
+    if (ENUM.genders.indexOf(maleOrFemale) === -1) {
       return Promise.reject(new Error(`
         Http::search expected "maleOrFemale" to be "all", "male" or "female".
         Received "${maleOrFemale}" (${typeof maleOrFemale}) instead
       `));
     }
 
-    if (['all', 'action', 'animation', 'comedy', 'documentary', 'family', 'fantasy', 'financial', 'history', 'horror', 'musical', 'sport', 'thriller'].indexOf(bookGenre) === -1) {
+    if (ENUM.genres.indexOf(bookGenre) === -1) {
       return Promise.reject(new Error(`
         Http::search expected "bookGenre" to be "all", "action", "animation", "comedy", "documentary", "family", "fantasy", "financial", "history", "horror", "musical", "sport" or "thriller".
         Received "${bookGenre}" (${typeof bookGenre}) instead
       `));
     }
 
-    if (['none', 'desc', 'asc'].indexOf(sortAuthorName) === -1) {
+    if (ENUM.sorting.indexOf(sortAuthorName) === -1) {
       return Promise.reject(new Error(`
         Http::search expected "sortAuthorName" to be "none", "desc" or "asc".
         Received "${sortAuthorName}" (${typeof sortAuthorName}) instead
       `));
     }
 
-    if (['none', 'desc', 'asc'].indexOf(sortBookName) === -1) {
+    if (ENUM.sorting.indexOf(sortBookName) === -1) {
       return Promise.reject(new Error(`
         Http::search expected "sortBookName" to be "none", "desc" or "asc".
         Received "${sortBookName}" (${typeof sortBookName}) instead

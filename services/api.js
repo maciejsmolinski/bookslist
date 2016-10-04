@@ -1,28 +1,19 @@
+/**
+ * Services serve generic purpose, they either do something or hold something.
+ */
+
+const ENUM = require('./enum');
+
+/**
+* API talks to the database through methods that hide complex queries from the
+* end-user (developer) as well as validate the inputs. All methods return Promises.
+*/
 class Api {
   constructor () {
     this.connection = require('./db')();
 
-    this.allowedGenres = [
-      'all',
-      'action',
-      'animation',
-      'comedy',
-      'documentary',
-      'family',
-      'fantasy',
-      'financial',
-      'history',
-      'horror',
-      'musical',
-      'sport',
-      'thriller',
-    ];
-
-    this.allowedGenders = [
-      'all',
-      'male',
-      'female',
-    ];
+    this.allowedGenres = ENUM.genres;
+    this.allowedGenders = ENUM.genders;
   }
 
   /**

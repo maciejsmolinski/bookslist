@@ -1,4 +1,5 @@
 const api = require('../../services/http');
+const ENUM = require('../../services/enum');
 
 const initial = {
   isLoading: false,
@@ -10,13 +11,8 @@ const initial = {
     sortAuthorName: 'none',
     sortBookName: 'none',
     available: {
-      genre: [
-        'all', 'action', 'animation', 'comedy',
-        'documentary', 'family', 'fantasy',
-        'financial', 'history', 'horror',
-        'musical', 'sport', 'thriller',
-      ],
-      gender: ['all', 'female', 'male'],
+      genre: ENUM.genres,
+      gender: ENUM.genders,
     }
   },
   page: 1,

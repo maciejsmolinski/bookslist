@@ -1,7 +1,12 @@
+/**
+ * Services serve generic purpose, they either do something or hold something.
+ */
+
 const Loki = require('lokijs');
 
 /**
- * Database Service. Returns a connection promise
+ * Database Service. Establishes connection to the database
+ * and returns a connection promise that resolves once database from file is loaded
  *
  *   Sample Usage:
  *

@@ -1,8 +1,10 @@
 const html = require('choo/html');
 const date = require('./date');
 
-// Helper function to check books agains specials definitions (indication)
+// Helper function to check books against specials definitions (indication)
 const specials = require('../helpers/specials');
+
+// Helper function to transform any text to a slug
 const slug = (text) => String(text).toLowerCase().replace(/\W/g, '-');
 
 module.exports = (book) =>

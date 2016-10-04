@@ -51,10 +51,10 @@ server.use(router.routes());
 
 // Warm up database/api connection once event loop is free
 process.nextTick(() =>
-  api.connection.then(() => console.log('Database warmed up (loaded)'))
+  api.connection.then(() => console.log('Database warmed up and ready to handle queries'))
 );
 
 // Listen on previously specified port
 server.listen(port, () =>
-  console.log(`Application ready and listens for requests on port ${port}`)
+  console.log(`Server ready and listening for incoming requests on http://localhost:${port}`)
 );

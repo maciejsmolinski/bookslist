@@ -62,7 +62,7 @@
  *     Example:
  *
  *       .books-list { font-size: 20px; font-weight: bold; }    << BAD (inline)
-
+ *
  *       .books-list {                                          << GOOD (newlines)
  *         font-size: 20px;
  *         font-weight: bold;
@@ -79,10 +79,11 @@
  *     fancy design choices.
  */
 
-
-// Import basic styles / helpers
+// Since one bundled file is going to be produced,
+// import basic styles / helpers / mixins globally
 @import "components/generic";
 @import "components/helpers";
+@import "components/mixins";
 
 // Import custom components
 @import "components/top-section";

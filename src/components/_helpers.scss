@@ -1,22 +1,22 @@
-/**
- * Placeholder selectors like `%bold` do not land in the output file
- *
- * They are useful though to produce optimised CSS code and ease development
- *
- * Useful References:
- * http://thesassway.com/intermediate/understanding-placeholder-selectors
- *
- *
- * Important Note:
- * Placeholder selectors don't work well with media queries. Things like
- *
- *   @include screen-big {
- *     @extend %bold;
- *   }
- *
- * Will NOT work!
- *
- */
+//
+// Placeholder selectors like `%bold` do not land in the output file
+//
+// They are useful though to produce optimised CSS code and ease development
+//
+// Useful References:
+// http://thesassway.com/intermediate/understanding-placeholder-selectors
+//
+//
+// Important Note:
+// Placeholder selectors don't work well with media queries. Things like
+//
+//   @include screen-big {
+//     @extend %bold;
+//   }
+//
+// Will NOT work!
+//
+//
 
 %border-box {
   box-sizing: border-box;

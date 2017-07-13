@@ -2,30 +2,33 @@ const initial = {
   errors: [],
 };
 
-module.exports = {
-  state: initial,
-  reducers: {
+module.exports = (state, emitter) => {
+  Object.assign(state, initial);
 
-    /**
-     * send('clear', done);
-     */
-    clear: () => initial,
+  /**
+   * emit('clear');
+   */
+  emitter.on('clear', (state) => {
+    Object.assign(state, initial);
 
-    /**
-     * send('error', 'Custom Error Message', done);
-     */
-    error: (message, state) => {
-      // Prevent duplicate error messages from ocurring on the list
-      if (state.errors.indexOf(message) !== -1) {
-        return state;
-      }
+    emitter.emit('render');
+  });
 
-      const errors = [].concat(state.errors, message);
+  /**
+   * emit('error', 'Custom Error Message');
+   */
+  emitter.on('error', (message) => {
+    // Prevent duplicate error messages from ocurring on the list
+    if (state.errors.indexOf(message) !== -1) {
+      return;
+    }
 
-      return Object.assign({}, state, { errors });
-    },
+    const errors = [].concat(state.errors, message);
 
-  },
-  effects: { },
-  subscriptions: [],
+    return Object.assign(state, { errors });
+
+    emitter.emit('render');
+  });
 };
+
+module.exports.initial = initial;

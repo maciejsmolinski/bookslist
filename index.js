@@ -4,6 +4,7 @@ const router = require('koa-router')();
 const server = require('koa')();
 const client = require('./src/app');
 const template = require('fs').readFileSync('./index.html', { encoding: 'utf-8' });
+const stores = require('fs').readdirSync('./src/stores');
 const layout = (contents) => template.replace('<body>', `<body>${contents}`);
 
 // Import API service that will query data
@@ -14,7 +15,9 @@ server.use(serve('./dest', { maxage: 1000 * 60 * 10 }));
 
 // Main Request Handler: Serve index.html with pre-rendered client app representing empty state
 router.get('/', function * () {
-  this.body = layout(client.toString(this.path));
+  const state = stores.reduce((state, store) => Object.assign(state, require('./src/stores/' + store).initial), {});
+
+  this.body = layout(client.toString(this.path, state));
 });
 
 // API: Generic route querying database through the API Service

@@ -1,7 +1,7 @@
 const html = require('choo/html');
 const filter = require('./filter');
 
-module.exports = (filters, send) => {
+module.exports = (filters, emit) => {
 
   const onChange = (event) => {
     const dropdown = event.target;
@@ -15,7 +15,7 @@ module.exports = (filters, send) => {
       }
     })();
 
-    send('books:changeFilters', filter);
+    emit('books:changeFilters', filter);
   };
 
   return html`

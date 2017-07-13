@@ -1,15 +1,15 @@
 const html = require('choo/html');
-const canSend = !(module && module.parent);
+const canEmit = !(module && module.parent);
 
 const topSection = require('./partials/top-section');
 const booksList = require('./partials/books-list');
 const filters = require('./partials/filters');
 
-module.exports = (state, previousState, send) => {
+module.exports = (state, emit) => {
   const { errors, books, params } = state;
 
-  if (canSend && !books.list.length) {
-    send('books:fetch');
+  if (canEmit && !books.list.length) {
+    emit('books:fetch');
   }
 
   /*
@@ -18,11 +18,13 @@ module.exports = (state, previousState, send) => {
   * Watch until eighth element from the end enters the screen
   * When it does, request additional data (lazy load)
   */
-  if (books.list.length && !books.isLoading) {
+  if (canEmit && books.list.length && !books.isLoading) {
     const selector = '.books-list .book-tile:nth-last-child(8)';
-    const observer = new IntersectionObserver(() => {
-        observer.unobserve(document.querySelector(selector));
-        send('books:fetch', { append: true });
+    const observer = new IntersectionObserver((entries = []) => {
+        if (entries.find(entry => entry.isIntersecting)) {
+          observer.unobserve(document.querySelector(selector));
+          emit('books:fetch', { append: true });
+        }
     });
 
     // Wait for event loop to finish working on DOM, then start observing
@@ -34,7 +36,7 @@ module.exports = (state, previousState, send) => {
 
       ${topSection()}
 
-      ${filters(books.filters, send)}
+      ${filters(books.filters, emit)}
 
       ${books.list.length ? booksList(books.list) : html``}
 

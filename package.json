@@ -29,6 +29,6 @@
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
     "lokijs": "^1.4.1",
-    "superagent": "^2.3.0"
+    "superagent": "^3.8.1"
   }
 }
